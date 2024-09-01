@@ -21,11 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
     //Declaración de la variable binding que contendrá la referencia a la clase generada para el archivo XML de diseño
     ActivityMainBinding binding;
-    //
-    private Handler handler;
-
-    //
-    private int progressStatus = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
