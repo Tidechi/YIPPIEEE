@@ -1,7 +1,10 @@
 package com.example.proyectodeejemplo;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +13,7 @@ import com.example.proyectodeejemplo.databinding.ActivityCheckListYippieeeBindin
 public class CheckListYIPPIEEE extends AppCompatActivity {
     ActivityCheckListYippieeeBinding binding;
     TaskManager taskManager;
+    WebView webview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,8 +21,7 @@ public class CheckListYIPPIEEE extends AppCompatActivity {
         binding = ActivityCheckListYippieeeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
-        taskManager = new TaskManager(this, binding.TASKRG, binding.CONGRATS, binding.YIPPIEEE, binding.PBTasks);
+        taskManager = new TaskManager(this,binding.confetti, binding.TASKRG, binding.CONGRATS, binding.YIPPIEEE, binding.PBTasks);
 
         //esto es exactamente lo mismo que el código de abajo pero con la función de flecha
         //recuerden borrar esto pq, aja, no lo enseñaron así zzzz

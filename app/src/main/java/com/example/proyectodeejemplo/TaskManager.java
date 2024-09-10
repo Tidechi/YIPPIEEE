@@ -2,6 +2,7 @@ package com.example.proyectodeejemplo;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -18,6 +19,8 @@ import android.os.Handler;
 import java.util.ArrayList;
 import java.util.List;
 
+import pl.droidsonroids.gif.GifImageView;
+
 public class TaskManager {
 
     private Context context;
@@ -27,17 +30,15 @@ public class TaskManager {
     private ProgressBar PB;
     private int contadorTareas = 0;
     private static final int MAX_TAREAS = 5;
+    private GifImageView conf;
 
-    public TaskManager(Context context, RadioGroup taskgroup, TextView congrats, ImageView img, ProgressBar PB) {
+    public TaskManager(Context context, GifImageView gifImageView, RadioGroup taskgroup, TextView congrats, ImageView img, ProgressBar PB) {
         this.context = context;
         this.RG = taskgroup;
         this.congrats = congrats;
+        this.conf = gifImageView;
         this.img = img;
         this.PB = PB;
-    }
-
-    public TaskManager() {
-
     }
 
     private List<CheckBox> tareas = new ArrayList<>();
@@ -104,6 +105,8 @@ public class TaskManager {
         if (todasMarcadas) {
             congrats.setVisibility(View.VISIBLE);
             img.setVisibility(View.VISIBLE);
+            conf.setVisibility(View.VISIBLE);
+            celebrate();
 
             new Handler().postDelayed(new Runnable() {
                 //nueva instancia de una clase anónima que implementa la interfaz runnable
@@ -113,6 +116,7 @@ public class TaskManager {
                 public void run() {
                     congrats.setVisibility(View.INVISIBLE);
                     img.setVisibility(View.INVISIBLE);
+                    conf.setVisibility(View.INVISIBLE);
                     PB.setProgress(0);
                     limpiarTareas();
 
@@ -131,6 +135,11 @@ public class TaskManager {
         RG.clearAnimation();
         tareas.clear();
         contadorTareas = 0;
+    }
+    public void celebrate(){
+        MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.yaysfx);
+        mediaPlayer.start();
+
     }
 
 }
