@@ -137,7 +137,7 @@ public class TaskManager {
         contadorTareas = 0;
     }
     public void celebrate(){
-        MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.yaysfx);
+        MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.yipi);
         mediaPlayer.start();
 
     }
