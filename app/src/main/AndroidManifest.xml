@@ -16,6 +16,9 @@
             android:name=".CheckListYIPPIEEE"
             android:exported="false" />
         <activity
+            android:name=".Openingscrn"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
