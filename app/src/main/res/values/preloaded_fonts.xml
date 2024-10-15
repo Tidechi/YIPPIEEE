@@ -2,6 +2,9 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/beau_rivage</item>
+        <item>@font/birthstone_bounce</item>
+        <item>@font/bonheur_royale</item>
+        <item>@font/euphoria_script</item>
         <item>@font/homemade_apple</item>
     </array>
 </resources>
