@@ -39,6 +39,20 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        binding.botonVerNotas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, VerNotas.class);
+                startActivity(intent);
+            }
+        });
+        binding.botonCrearNotas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AgregarNotas.class);
+                startActivity(intent);
+            }
+        });
 
 
 

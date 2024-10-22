@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -25,7 +26,12 @@ public class DatabaseManager {
         values.put("titulo", nota.getTitulo());
         values.put("texto", nota.getTexto());
         values.put("design", nota.getDesign());
-        db.insert("Notas", null, values);
+        long result = db.insert("Notas", null, values);
+        if (result == -1) {
+            Log.e("Database", "No se inserto nada...");
+        } else {
+            Log.d("Database", "Nota insertada con id: " + result);
+        }
         db.close();
     }
 
@@ -44,10 +50,12 @@ public class DatabaseManager {
                 int design = cursor.getInt(4);
                 Nota nota = new Nota(id, fecha, titulo, texto, design);
                 notaList.add(nota);
+                Log.d("Database", "Nota encontrada: " + nota.getTitulo());
             } while (cursor.moveToNext());
         }
         cursor.close();
         db.close();
+        Log.d("Database", "Total notes retrieved: " + notaList.size());
         return notaList;
     }
 

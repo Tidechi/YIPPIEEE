@@ -25,9 +25,8 @@ public class AgregarNotas extends AppCompatActivity {
             String titulo = binding.editTitulo.getText().toString();
             String texto = binding.editTexto.getText().toString();
             int design = 1;
-            int id = 1;
 
-            Nota nota = new Nota(id, fecha, titulo, texto, design);
+            Nota nota = new Nota(0, fecha, titulo, texto, design);
             dbManager.insertNota(nota);
             finish();
         });

@@ -11,10 +11,32 @@
         android:id="@+id/BTNCL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="664dp"
+        android:layout_marginTop="312dp"
         android:text="YIPPIEE"
+        app:layout_constraintBottom_toTopOf="@+id/botonVerNotas"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/botonVerNotas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ver Notas(WIP)"
+        app:layout_constraintEnd_toEndOf="@+id/BTNCL"
+        app:layout_constraintStart_toStartOf="@+id/BTNCL"
+        tools:layout_editor_absoluteY="396dp"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/botonCrearNotas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Crear Notas(WIP)"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/botonVerNotas"
+        app:layout_constraintHorizontal_bias="0.538"
+        app:layout_constraintStart_toStartOf="@+id/botonVerNotas"
+        app:layout_constraintTop_toBottomOf="@+id/botonVerNotas" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
