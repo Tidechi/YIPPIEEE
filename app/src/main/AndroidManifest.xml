@@ -24,6 +24,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AgregarNotas"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".VerNotas"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>

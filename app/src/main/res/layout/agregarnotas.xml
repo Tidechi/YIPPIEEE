@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".AgregarNotas">
+
+    <LinearLayout
+        android:layout_width="409dp"
+        android:layout_height="729dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp">
+
+        <TextView
+            android:id="@+id/textFecha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fecha" />
+
+        <EditText
+            android:id="@+id/editFecha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="date" />
+
+        <TextView
+            android:id="@+id/textTitulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ingrese un titulo para su nota" />
+
+        <EditText
+            android:id="@+id/editTitulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:text="Titulo aqui" />
+
+        <TextView
+            android:id="@+id/textTexto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Texto de su nota" />
+
+        <EditText
+            android:id="@+id/editTexto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:text="Habia una vez..." />
+
+        <Button
+            android:id="@+id/saveNota"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guardar nota" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
