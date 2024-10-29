@@ -1,5 +1,6 @@
 package com.example.proyectodeejemplo;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +12,7 @@ import com.example.proyectodeejemplo.databinding.ActivityMainBinding;
 
 import java.util.List;
 
-public class VerNotas extends AppCompatActivity {
+public class VerNotas extends AppCompatActivity implements RecyclerViewInterface {
 
     VernotasBinding binding;
 
@@ -30,8 +31,14 @@ public class VerNotas extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         //Crear y configurar el adaptador
-        NotesAdapter adapter = new NotesAdapter(notas);
+        NotesAdapter adapter = new NotesAdapter(notas, this);
         recyclerView.setAdapter(adapter);
+
+    }
+
+    @Override
+    public void onNotaClick(int position) {
+        Intent intent = new Intent(this, AgregarNotas.class);
 
     }
 }

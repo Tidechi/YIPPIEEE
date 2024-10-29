@@ -18,7 +18,6 @@ public class DatabaseManager {
 
     //METODOS PARA LAS NOTAS #ayuda
     //para insertar una nota
-
     public void insertNota(Nota nota) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -35,7 +34,7 @@ public class DatabaseManager {
         db.close();
     }
 
-    //Obtener todas las notas
+    //Obtener todas las notas(LISTO)
     public ArrayList<Nota> getAllNotas() {
         ArrayList<Nota> notaList = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -100,7 +99,7 @@ public class DatabaseManager {
         return null;
     }
 
-    //encontrar una nota por fecha
+    //Encontrar una nota por fecha (WIP)
     public Nota findNotaByFecha(String fecha) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM Notas WHERE fecha = ?", new String[]{String.valueOf(fecha)});
@@ -122,7 +121,7 @@ public class DatabaseManager {
         return null;
     }
 
-    //encontrar nota por texto
+    //encontrar nota por texto (WIP)
     public Nota findNotaByTexto(String texto) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM Notas WHERE texto LIKE ?", new String[]{"%" + texto + "%"});
@@ -147,6 +146,89 @@ public class DatabaseManager {
         }
         db.close();
         return null;
+    }
+
+    //Metodos para los recordatorios #ayuda
+
+    //Metodo para insertar recordatorios
+    public void insertRecordatorio(Recordatorio recordatorio) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("tiponota", recordatorio.getTiponota());
+        values.put("sticker", recordatorio.getSticker());
+        values.put("fecha", recordatorio.getFecha());
+        values.put("texto", recordatorio.getTexto());
+        long result = db.insert("Recordatorios", null, values);
+        if (result == -1) {
+            Log.e("Database", "No se inserto nada...");
+        } else {
+            Log.d("Database", "Recordatorio insertado con id: " + result);
+        }
+        db.close();
+
+    }
+
+    //Metodo para obtener todos los recordatorios
+    public ArrayList<Recordatorio> getAllRecordatorios() {
+        ArrayList<Recordatorio> recordatorioList = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Recordatorios", null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(0);
+                int tiponota = cursor.getInt(1);
+                int sticker = cursor.getInt(2);
+                String fecha = cursor.getString(3);
+                String texto = cursor.getString(4);
+                Recordatorio recordatorio = new Recordatorio(id, tiponota, sticker, fecha, texto);
+                recordatorioList.add(recordatorio);
+                Log.d("Database", "Recordatorio encontrado: " + recordatorio.getTexto());
+                } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        Log.d("Database", "Total recordatorios retrieved: " + recordatorioList.size());
+        return recordatorioList;
+    }
+
+    //Metodo para actualizar recordatorios
+    public void updateRecordatorio(Recordatorio recordatorio) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("tiponota", recordatorio.getTiponota());
+        values.put("sticker", recordatorio.getSticker());
+        values.put("fecha", recordatorio.getFecha());
+        values.put("texto", recordatorio.getTexto());
+        db.update("Recordatorios", values, "id = ?", new String[]{String.valueOf(recordatorio.getId())});
+        db.close();
+    }
+
+    //Eliminar recordatorio
+    public void deleteRecordatorio(int id) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.delete("Recordatorios", "id = ?", new String[]{String.valueOf(id)});
+        db.close();
+    }
+
+    //Encontrar recordatorio por id
+    public void findRecordatorioById(int id) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Recordatorios WHERE id = ?", new String[]{String.valueOf(id)});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            int tiponota = cursor.getInt(1);
+            int sticker = cursor.getInt(2);
+            String fecha = cursor.getString(3);
+            String texto = cursor.getString(4);
+            Recordatorio recordatorio = new Recordatorio(id, tiponota, sticker, fecha, texto);
+            cursor.close();
+            db.close();
+            Log.d("Database", "Recordatorio encontrado: " + recordatorio.getTexto());
+        }
+        cursor.close();
+        db.close();
+        Log.d("Database", "No se encontro un recordatorio con ese id...");
     }
 
 }

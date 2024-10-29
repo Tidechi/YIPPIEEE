@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="wip">Calendario de tareas pendientes en recycler view</string>
+</resources>
