@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--Acá se espeficican los elementos del menú de la barra de navegación¿ -->
+    <item
+        android:id="@+id/notas"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Notas" />
+    <item
+        android:id="@+id/checklist"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="Checklist" />
+    <item
+        android:id="@+id/calendario"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="Calendario" />
+</menu>
