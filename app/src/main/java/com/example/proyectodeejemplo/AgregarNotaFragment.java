@@ -1,6 +1,7 @@
 package com.example.proyectodeejemplo;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ public class AgregarNotaFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.d("AgregarNotaFragment", "onCreateView called");
         return inflater.inflate(R.layout.agregarnotas, container, false);
     }
+
 }

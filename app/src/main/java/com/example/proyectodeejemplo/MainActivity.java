@@ -2,16 +2,13 @@ package com.example.proyectodeejemplo;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.util.Log; // Import Log class for logging
 import com.example.proyectodeejemplo.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import com.example.proyectodeejemplo.R;
-
-import com.example.proyectodeejemplo.databinding.ActivityMainBinding;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,8 +31,10 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnItemSelectedListener(mOnNavigationItemSelectedListener);
 
         // Load the default fragment at startup
+        Log.d("MainActivity", "Loading AgregarNotaFragment");
         loadFragment(agregarNotaFragment);
     }
+
 
     // Listener to handle selections in BottomNavigationView
     private final BottomNavigationView.OnItemSelectedListener mOnNavigationItemSelectedListener =
@@ -46,10 +45,16 @@ public class MainActivity extends AppCompatActivity {
 
                     if (item.getItemId() == R.id.notas) {
                         selectedFragment = agregarNotaFragment;
+                        loadFragment(selectedFragment);
+                        Log.d("MainActivity", "Selected fragment: AgregarNotaFragment");
                     } else if (item.getItemId() == R.id.checklist) {
                         selectedFragment = checkListYIPPIEEEFragment;
+                        loadFragment(selectedFragment);
+                        Log.d("MainActivity", "Selected fragment: CheckListYIPPIEEEFragment");
                     } else if (item.getItemId() == R.id.calendario) {
                         selectedFragment = verNotasFragment;
+                        loadFragment(selectedFragment);
+                        Log.d("MainActivity", "Selected fragment: VerNotasFragment");
                     } else {
                         return false;
                     }
@@ -59,9 +64,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             };
 
-
     // Method to load and display the fragment in the activity's container
     private void loadFragment(Fragment fragment) {
+        Log.d("MainActivity", "Loading fragment: " + fragment.getClass().getSimpleName());
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container, fragment); // Replace the current fragment with the new one
         transaction.commit(); // Commit the fragment transaction
