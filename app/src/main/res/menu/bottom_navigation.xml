@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/notas"
+        android:title="Notas"
+        android:icon="@drawable/notes" />
+    <item
+        android:id="@+id/checklist"
+        android:title="Checklist"
+        android:icon="@drawable/checklist" />
+    <item
+        android:id="@+id/calendario"
+        android:title="Calendario"
+        android:icon="@drawable/calendar" />
+</menu>
