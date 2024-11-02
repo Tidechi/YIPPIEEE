@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnItemSelectedListener(mOnNavigationItemSelectedListener);
 
         // Load the default fragment at startup
-        Log.d("MainActivity", "Loading AgregarNotaFragment");
         loadFragment(agregarNotaFragment);
     }
 
