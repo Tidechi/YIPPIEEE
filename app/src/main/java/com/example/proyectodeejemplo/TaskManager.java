@@ -39,14 +39,20 @@ public class TaskManager {
     private DatabaseManager dbManager;
     private List<CheckBox> tareas = new ArrayList<>();
     private List<ChecklistItem> checklistItems;
+    private CelebrationListener celebrationListener;
+
+    public interface CelebrationListener {
+        void celebrate();
+    }
 
     // Constructor
-    public TaskManager(Context context, RadioGroup taskgroup, ProgressBar PB, String fechaDeHoy) {
+    public TaskManager(Context context, RadioGroup taskgroup, ProgressBar PB, String fechaDeHoy, CelebrationListener listener) {
         Log.d("TaskManager", "Initializing TaskManager with date: " + fechaDeHoy);
         this.context = context;
         this.RG = taskgroup;
         this.PB = PB;
         this.fechaDeHoy = fechaDeHoy;
+        this.celebrationListener = listener;
 
         try {
             dbManager = new DatabaseManager(context);
@@ -141,11 +147,10 @@ public class TaskManager {
     }
 
     private void verificarTareasCompletas() {
-        boolean todasMarcadas = true;
+        boolean todasMarcadas = true; // Start with the assumption that all are checked
 
         for (int i = 0; i < RG.getChildCount(); i++) {
             View view = RG.getChildAt(i);
-
             if (view instanceof CheckBox) {
                 CheckBox cb = (CheckBox) view;
                 if (!cb.isChecked()) {
@@ -155,9 +160,14 @@ public class TaskManager {
             }
         }
 
-        if (todasMarcadas) {
-            Log.d("TaskManager", "All tasks completed!");
+        if (todasMarcadas && PB.getProgress() == PB.getMax()) {
+            Log.d("TaskManager", "All tasks completed and progress bar is full!");
+            if (celebrationListener != null) {
+                celebrationListener.celebrate();
+            }
         }
     }
+
+
 }
 
