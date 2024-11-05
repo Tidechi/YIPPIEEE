@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     // Fragment instances for each section (notes, checklist, calendar)
     private final AgregarNotaFragment agregarNotaFragment = new AgregarNotaFragment();
     private final CheckListYIPPIEEEFragment checkListYIPPIEEEFragment = new CheckListYIPPIEEEFragment();
-    private final VerNotasFragment verNotasFragment = new VerNotasFragment();
+    private final Calendario verCalendarioFragment = new CalendarioFragment();
 
     // Binding instance
     private ActivityMainBinding binding;
@@ -52,9 +52,9 @@ public class MainActivity extends AppCompatActivity {
                         loadFragment(selectedFragment);
                         Log.d("MainActivity", "Selected fragment: CheckListYIPPIEEEFragment");
                     } else if (item.getItemId() == R.id.calendario) {
-                        selectedFragment = verNotasFragment;
+                        selectedFragment = verCalendarioFragment;
                         loadFragment(selectedFragment);
-                        Log.d("MainActivity", "Selected fragment: VerNotasFragment");
+                        Log.d("MainActivity", "Selected fragment: CalendarioFragment");
                     } else {
                         return false;
                     }

@@ -14,20 +14,20 @@
         android:theme="@style/Theme.ProyectoDeEjemplo"
         tools:targetApi="31">
         <activity
+            android:name=".Calendario"
+            android:exported="false" />
+        <activity
             android:name=".CheckListYIPPIEEE"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".AgregarNotas"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".VerNotas"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".debugMenu"
             android:exported="true">
