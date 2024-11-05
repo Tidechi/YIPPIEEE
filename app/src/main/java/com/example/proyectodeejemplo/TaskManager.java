@@ -1,5 +1,7 @@
 package com.example.proyectodeejemplo;
 
+import static java.security.AccessController.getContext;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.media.MediaPlayer;
@@ -16,61 +18,120 @@ import android.widget.Toast;
 
 import android.os.Handler;
 
+import androidx.fragment.app.Fragment;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import com.example.proyectodeejemplo.CheckListYIPPIEEEFragment;
 
 import pl.droidsonroids.gif.GifImageView;
 
-public class TaskManager {
+import android.util.Log;
 
+public class TaskManager {
     private Context context;
     private RadioGroup RG;
-    private TextView congrats;
-    private ImageView img;
     private ProgressBar PB;
     private int contadorTareas = 0;
-    private static final int MAX_TAREAS = 5;
-    private GifImageView conf;
+    private static final int MAX_TAREAS = 8;
+    private String fechaDeHoy;
+    private DatabaseManager dbManager;
+    private List<CheckBox> tareas = new ArrayList<>();
+    private List<ChecklistItem> checklistItems;
 
-    public TaskManager(Context context, GifImageView gifImageView, RadioGroup taskgroup, TextView congrats, ImageView img, ProgressBar PB) {
+    // Constructor
+    public TaskManager(Context context, RadioGroup taskgroup, ProgressBar PB, String fechaDeHoy) {
+        Log.d("TaskManager", "Initializing TaskManager with date: " + fechaDeHoy);
         this.context = context;
         this.RG = taskgroup;
-        this.congrats = congrats;
-        this.conf = gifImageView;
-        this.img = img;
         this.PB = PB;
+        this.fechaDeHoy = fechaDeHoy;
+
+        try {
+            dbManager = new DatabaseManager(context);
+            checklistItems = dbManager.getAllItemsByFecha(fechaDeHoy);
+        } catch (Exception e) {
+            Log.e("TaskManager", "Error initializing DatabaseManager: " + e.getMessage(), e);
+        }
     }
 
-    private List<CheckBox> tareas = new ArrayList<>();
+    public void cargarItems() {
+        Log.d("TaskManager", "Loading items for date: " + fechaDeHoy);
 
-    public void agregarTarea(String textoTarea, EditText campoTexto, ProgressBar PB) {
-        if (contadorTareas < MAX_TAREAS) {
-            if (!textoTarea.isEmpty()) {
+        try {
+            RG.removeAllViews();
+            tareas.clear();
+
+            checklistItems = dbManager.getAllItemsByFecha(fechaDeHoy);
+            if (checklistItems == null) {
+                Log.w("TaskManager", "No items found for today's date.");
+                checklistItems = new ArrayList<>();
+            }
+
+            Log.d("TaskManager", "Tasks found: " + checklistItems.size());
+            PB.setMax(checklistItems.size());
+
+            int completedTasks = 0;
+
+            for (ChecklistItem item : checklistItems) {
+                Log.d("TaskManager", "Task loaded: " + item.getTexto() + ", Completed: " + item.getEstado());
+
                 CheckBox cb = new CheckBox(context);
-                cb.setText(textoTarea);
+                cb.setText(item.getTexto());
+                cb.setChecked(item.getEstado());
+                RG.addView(cb, 0);
+                tareas.add(cb);
+
+                if (item.getEstado()) {
+                    completedTasks++;
+                }
 
                 cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        int terminadas = 0;
-                        for (CheckBox tarea : tareas){
-                            if(tarea.isChecked()){
-                                terminadas++;
-                                PB.setMax(tareas.size());
+                        item.setEstado(isChecked);
+                        dbManager.updateItem(item);
+                        Log.d("TaskManager", "Task updated in DB: " + item.getTexto() + " - " + (isChecked ? "Completed" : "Not Completed"));
 
+                        int terminadas = 0;
+                        for (CheckBox tarea : tareas) {
+                            if (tarea.isChecked()) {
+                                terminadas++;
                             }
                         }
                         PB.setProgress(terminadas);
                         verificarTareasCompletas();
-                        }
-
+                    }
                 });
+            }
 
+            PB.setProgress(completedTasks);
+            Log.d("TaskManager", "Initial progress set to: " + completedTasks);
+        } catch (Exception e) {
+            Log.e("TaskManager", "Error in cargarItems: " + e.getMessage(), e);
+        }
+    }
 
-                RG.addView(cb, 0);
-                tareas.add(cb);
-                contadorTareas++;
-                campoTexto.setText("");
+    public void agregarTarea(String textoTarea, EditText campoTexto, ProgressBar PB) {
+        Log.d("TaskManager", "Adding new task: " + textoTarea);
+
+        if (contadorTareas < MAX_TAREAS) {
+            if (!textoTarea.isEmpty()) {
+                ChecklistItem newTask = new ChecklistItem();
+                newTask.setTexto(textoTarea);
+                newTask.setFecha(fechaDeHoy);
+                newTask.setEstado(false);
+
+                try {
+                    dbManager.insertItem(newTask);
+                    Log.d("TaskManager", "New task added: " + newTask.getTexto());
+                    cargarItems();
+                    RG.invalidate(); // Force redraw
+                    campoTexto.setText("");
+                } catch (Exception e) {
+                    Log.e("TaskManager", "Error inserting task into DB: " + e.getMessage(), e);
+                }
             } else {
                 Toast.makeText(context, "Ingresa una tarea!", Toast.LENGTH_SHORT).show();
             }
@@ -79,22 +140,14 @@ public class TaskManager {
         }
     }
 
-    //esto me lo robé
     private void verificarTareasCompletas() {
-        //Inicializa una variable para rastrear si todas las casillas de verificación están marcadas
         boolean todasMarcadas = true;
 
-        //Itera a través de todos los elementos del grupo de vistas RG
         for (int i = 0; i < RG.getChildCount(); i++) {
-            //Obtiene la vista en la posición actual del grupo de vistas RG
             View view = RG.getChildAt(i);
 
-            //Verifica si la vista es una instancia de CheckBox
             if (view instanceof CheckBox) {
-                // Convierte la vista en un CheckBox
                 CheckBox cb = (CheckBox) view;
-
-                // Si el CheckBox no está marcado, establece todasMarcadas en false y rompe el ciclo
                 if (!cb.isChecked()) {
                     todasMarcadas = false;
                     break;
@@ -103,43 +156,8 @@ public class TaskManager {
         }
 
         if (todasMarcadas) {
-            congrats.setVisibility(View.VISIBLE);
-            img.setVisibility(View.VISIBLE);
-            conf.setVisibility(View.VISIBLE);
-            celebrate();
-
-            new Handler().postDelayed(new Runnable() {
-                //nueva instancia de una clase anónima que implementa la interfaz runnable
-                //y el método que se ejecutará pasado A. el tiempo determinado
-                //otra vez esto se podría hacer con función de flecha pero XD lo dejé así pq así lo enseñaron ok
-                @Override
-                public void run() {
-                    congrats.setVisibility(View.INVISIBLE);
-                    img.setVisibility(View.INVISIBLE);
-                    conf.setVisibility(View.INVISIBLE);
-                    PB.setProgress(0);
-                    limpiarTareas();
-
-                }
-                //B. 3 segundos en este caso
-            }, 3000);
+            Log.d("TaskManager", "All tasks completed!");
         }
     }
-
-
-    private void limpiarTareas() {
-        for (CheckBox cb : tareas) {
-            RG.removeView(cb);
-        }
-
-        RG.clearAnimation();
-        tareas.clear();
-        contadorTareas = 0;
-    }
-    public void celebrate(){
-        MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.yipi);
-        mediaPlayer.start();
-
-    }
-
 }
+

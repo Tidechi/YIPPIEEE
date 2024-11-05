@@ -10,7 +10,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "appdiario.db";
 
     // Database version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
 
     public MyDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -21,7 +21,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         // Creating Notas table
         String createNotasTable = "CREATE TABLE Notas (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "fecha DATE," +
+                "fecha TEXT," +
                 "titulo TEXT," +
                 "texto TEXT," +
                 "design INTEGER" +
@@ -31,9 +31,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         // Creating Checklist table
         String createChecklistTable = "CREATE TABLE Checklist (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "fecha DATE," +
-                "titulo TEXT," +
-                "texto TEXT" +
+                "fecha TEXT," +
+                "texto TEXT," +
+                "estado INTEGER" +
                 ");";
         db.execSQL(createChecklistTable);
 
@@ -42,7 +42,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "tiponota INTEGER," +
                 "sticker INTEGER," +
-                "fecha DATE," +
+                "fecha TEXT," +
                 "texto TEXT" +
                 ");";
         db.execSQL(createRecordatoriosTable);
@@ -50,7 +50,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         // Creating Mood table
         String createMoodTable = "CREATE TABLE Mood (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "fecha DATE," +
+                "fecha TEXT," +
                 "estado INTEGER" +
                 ");";
         db.execSQL(createMoodTable);

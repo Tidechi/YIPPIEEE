@@ -20,9 +20,6 @@ public class CheckListYIPPIEEE extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityCheckListYippieeeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        taskManager = new TaskManager(this,binding.confetti, binding.TASKRG, binding.CONGRATS, binding.YIPPIEEE, binding.PBTasks);
-
         //esto es exactamente lo mismo que el código de abajo pero con la función de flecha
         //recuerden borrar esto pq, aja, no lo enseñaron así zzzz
 

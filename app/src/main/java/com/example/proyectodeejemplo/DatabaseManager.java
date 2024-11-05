@@ -231,4 +231,95 @@ public class DatabaseManager {
         Log.d("Database", "No se encontro un recordatorio con ese id...");
     }
 
+    //Metodos para la Checklist
+
+    //Agregar item a la tabla de checklist
+    public void insertItem(ChecklistItem checklistItem){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("fecha", checklistItem.getFecha());
+        values.put("texto", checklistItem.getTexto());
+        values.put("estado", checklistItem.getEstado());
+        long result = db.insert("Checklist", null, values);
+        if (result == -1) {
+            Log.e("Database", "No se inserto nada...");
+        } else {
+            Log.d("Database", "Item insertado con id: " + result);
+        }
+        db.close();
+    }
+
+    //Obtener todos los items de la checklist
+    public ArrayList<ChecklistItem> getAllItems(){
+        ArrayList<ChecklistItem> checklistItems = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Checklist", null);
+        if (cursor.moveToFirst()){
+            do {
+                int id = cursor.getInt(0);
+                String fecha = cursor.getString(1);
+                String texto = cursor.getString(2);
+                boolean estado = cursor.getInt(3) == 1;
+
+                ChecklistItem checklistItem = new ChecklistItem(id, fecha, texto, estado);
+                checklistItems.add(checklistItem);
+                Log.d("Database", "Item encontrado: " + checklistItem.getTexto());
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        Log.d("Database", "Total items retrieved: " + checklistItems.size());
+        return checklistItems;
+    }
+
+    //Obtener todos los items de una fecha determinada
+    public ArrayList<ChecklistItem> getAllItemsByFecha(String fecha){
+        ArrayList<ChecklistItem> checklistItems = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Checklist WHERE fecha = ?", new String[]{fecha});
+
+        if (cursor.moveToFirst()){
+            do {
+                int id = cursor.getInt(0);
+                String texto = cursor.getString(2);
+                boolean estado = cursor.getInt(3) == 1;
+                ChecklistItem checklistItem = new ChecklistItem(id, fecha, texto, estado);
+                checklistItems.add(checklistItem);
+                Log.d("Database", "Item encontrado: " + checklistItem.getTexto());
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        Log.d("Database", "Total items retrieved: " + checklistItems.size());
+        return checklistItems;
+    }
+
+    //Marcar un item como completado
+    public void marcarComoCompletado(int id){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("estado", 1);
+        db.update("Checklist", values, "id = ?", new String[]{String.valueOf(id)});
+        db.close();
+    }
+
+    //Marcar como no completado
+    public void marcarComoNoCompletado(int id){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("estado", 0);
+        db.update("Checklist", values, "id = ?", new String[]{String.valueOf(id)});
+        db.close();
+    }
+
+    //actualizar item
+    public void updateItem(ChecklistItem checklistItem){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("fecha", checklistItem.getFecha());
+        values.put("texto", checklistItem.getTexto());
+        values.put("estado", checklistItem.getEstado());
+        db.update("Checklist", values, "id = ?", new String[]{String.valueOf(checklistItem.getId())});
+        db.close();
+    }
 }

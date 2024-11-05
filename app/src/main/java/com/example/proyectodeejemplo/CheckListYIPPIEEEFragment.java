@@ -14,16 +14,28 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.proyectodeejemplo.databinding.ActivityCheckListYippieeeBinding;
+
+import java.util.Calendar;
+
+import pl.droidsonroids.gif.GifImageView;
 
 public class CheckListYIPPIEEEFragment extends Fragment {
     private ActivityCheckListYippieeeBinding binding;
     private TaskManager taskManager;
     private WebView webview;
     private Button botonCrear;
+    private GifImageView conf;
+    private ImageView img;
+    private TextView congrats;
+    private ImageView YIPPIEEE;
+    private GifImageView confetti;
+    public String fechaDeHoy;
 
     @Nullable
     @Override
@@ -32,8 +44,13 @@ public class CheckListYIPPIEEEFragment extends Fragment {
         binding = ActivityCheckListYippieeeBinding.inflate(inflater, container, false);
         View v = binding.getRoot();
 
+        // Set today's date and display it
+        fechaDeHoy = getTodaysDate();
+        binding.fechaChecklist.setText(fechaDeHoy);
+
         // Initialize taskManager with getContext() instead of this
-        taskManager = new TaskManager(getContext(), binding.confetti, binding.TASKRG, binding.CONGRATS, binding.YIPPIEEE, binding.PBTasks);
+        taskManager = new TaskManager(getContext(), binding.TASKRG, binding.PBTasks, fechaDeHoy);
+        taskManager.cargarItems();
 
         // Setup the button and its listener
         botonCrear = binding.OK;
@@ -46,5 +63,22 @@ public class CheckListYIPPIEEEFragment extends Fragment {
         });
 
         return v;
+    }
+
+    private String getTodaysDate() {
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH) +1;
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        return  makeDateString(day, month, year);
+    }
+
+    private String makeDateString(int day, int month, int year) {
+        return day + "/" + month + "/" + year;
+    }
+
+    public void celebrate(){
+        MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.yipi);
+        mediaPlayer.start();
     }
 }
