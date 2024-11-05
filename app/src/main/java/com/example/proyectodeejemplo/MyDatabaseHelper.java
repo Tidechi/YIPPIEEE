@@ -55,7 +55,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 ");";
         db.execSQL(createMoodTable);
 
-        // Creating Animo table
+        // Creating Animos disponibles table
         String createAnimoTable = "CREATE TABLE Animo (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "emocion TEXT" +
