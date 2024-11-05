@@ -231,4 +231,20 @@ public class DatabaseManager {
         Log.d("Database", "No se encontro un recordatorio con ese id...");
     }
 
+    public void InsertarMood(MoodClase mood){
+        SQLiteDatabase db= dbHelper.getWritableDatabase();
+        ContentValues values= new ContentValues();
+        values.put("fecha",mood.getFecha());
+        values.put("estado",mood.getEstado());
+
+        long result = db.insert("Mood", null, values);
+        if (result == -1) {
+            Log.e("Database", "No se inserto nada...");
+        } else {
+            Log.d("Database", "Recordatorio insertado con id: " + result);
+        }
+        db.close();
+
+    }
+
 }

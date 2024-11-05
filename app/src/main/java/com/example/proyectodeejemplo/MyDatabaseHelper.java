@@ -50,12 +50,12 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         // Creating Mood table
         String createMoodTable = "CREATE TABLE Mood (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "fecha DATE," +
+                "fecha TEXT," +
                 "estado INTEGER" +
                 ");";
         db.execSQL(createMoodTable);
 
-        // Creating Animo table
+        // Creating Animos disponibles table
         String createAnimoTable = "CREATE TABLE Animo (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "emocion TEXT" +
