@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     // Fragment instances for each section (notes, checklist, calendar)
     private final AgregarNotaFragment agregarNotaFragment = new AgregarNotaFragment();
     private final CheckListYIPPIEEEFragment checkListYIPPIEEEFragment = new CheckListYIPPIEEEFragment();
-    private final Calendario verCalendarioFragment = new CalendarioFragment();
+    private final CalendarioFragment verCalendarioFragment = new CalendarioFragment();
 
     // Binding instance
     private ActivityMainBinding binding;
