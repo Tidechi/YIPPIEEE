@@ -1,6 +1,7 @@
 package com.example.proyectodeejemplo;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ import java.util.Calendar;
 
 import pl.droidsonroids.gif.GifImageView;
 
-public class CheckListYIPPIEEEFragment extends Fragment {
+public class CheckListYIPPIEEEFragment extends Fragment implements TaskManager.CelebrationListener {
     private ActivityCheckListYippieeeBinding binding;
     private TaskManager taskManager;
     private WebView webview;
@@ -49,7 +50,7 @@ public class CheckListYIPPIEEEFragment extends Fragment {
         binding.fechaChecklist.setText(fechaDeHoy);
 
         // Initialize taskManager with getContext() instead of this
-        taskManager = new TaskManager(getContext(), binding.TASKRG, binding.PBTasks, fechaDeHoy);
+        taskManager = new TaskManager(getContext(), binding.TASKRG, binding.PBTasks, fechaDeHoy, this);
         taskManager.cargarItems();
 
         // Setup the button and its listener
@@ -77,8 +78,11 @@ public class CheckListYIPPIEEEFragment extends Fragment {
         return day + "/" + month + "/" + year;
     }
 
-    public void celebrate(){
+    @Override
+    public void celebrate() {
+        // Play the celebration sound
         MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.yipi);
         mediaPlayer.start();
     }
+
 }
