@@ -21,11 +21,15 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="124dp"
-        android:layout_height="123dp"
-        app:srcCompat="@drawable/caraLLorando"
-        tools:layout_editor_absoluteX="143dp"
-        tools:layout_editor_absoluteY="71dp" />
+        android:layout_width="133dp"
+        android:layout_height="138dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.094"
+        app:srcCompat="@drawable/caraLLorando" />
 
     <Button
         android:id="@+id/BotonTriste"
