@@ -5,5 +5,18 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
+    <style name="debugging_theme" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/Primary</item>
+        <item name="colorSecondary">@color/Secondary</item>
+        <item name="colorTertiary">@color/Tertiary</item>
+    </style>
+
+    <style name="debugging_theme.buttons" >
+        <item name="android:background">@color/light_beige</item>
+    </style>
+
+
     <style name="Theme.ProyectoDeEjemplo" parent="Base.Theme.ProyectoDeEjemplo" />
 </resources>
