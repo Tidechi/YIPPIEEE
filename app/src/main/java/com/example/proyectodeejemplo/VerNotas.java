@@ -2,6 +2,7 @@ package com.example.proyectodeejemplo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -40,5 +41,10 @@ public class VerNotas extends AppCompatActivity implements RecyclerViewInterface
     public void onNotaClick(int position) {
         Intent intent = new Intent(this, AgregarNotas.class);
 
+    }
+
+    public void onAddNotaButtonClick(View view) {
+        Intent intent = new Intent(this, AgregarNotaFragment.class);
+        startActivity(intent);
     }
 }

@@ -56,8 +56,19 @@ public class AgregarNotaFragment extends Fragment {
             } else {
                 Nota nota = new Nota(0, fecha, titulo, texto, design);
                 dbManager.insertNota(nota);
+
+                // Return to VerNotasFragment
+                getParentFragmentManager().popBackStack();
             }
         });
+        binding.editFecha.setOnClickListener(view -> {
+            if (isAdded()) {
+                showDatePicker(view);
+            } else {
+                Log.e("AgregarNotaFragment", "Fragment not attached to activity");
+            }
+        });
+
         return v;
     }
 
@@ -78,7 +89,7 @@ public class AgregarNotaFragment extends Fragment {
 
         int style = AlertDialog.THEME_HOLO_LIGHT;
 
-        datePickerDialog = new DatePickerDialog(getContext(), style, dateSetListener, year, month, day);
+        datePickerDialog = new DatePickerDialog(requireContext(), style, dateSetListener, year, month, day);
     }
 
     private String makeDateString(int day, int month, int year) {
@@ -95,6 +106,11 @@ public class AgregarNotaFragment extends Fragment {
     }
 
     public void showDatePicker(View view) {
-        datePickerDialog.show();
+        if (datePickerDialog != null) {
+            datePickerDialog.show();
+        } else {
+            Log.e("AgregarNotaFragment", "DatePickerDialog is not initialized");
+        }
     }
+
 }

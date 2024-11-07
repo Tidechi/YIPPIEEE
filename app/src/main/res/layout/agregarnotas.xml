@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AgregarNotas">
+    tools:context=".AgregarNotas"
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/textFecha"
@@ -27,7 +28,6 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="date"
-        android:onClick="showDatePicker"
         android:text="30/01/2024"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/black"

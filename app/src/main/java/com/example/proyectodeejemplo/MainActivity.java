@@ -14,7 +14,7 @@ import com.example.proyectodeejemplo.CheckListYIPPIEEE;
 public class MainActivity extends AppCompatActivity {
 
     // Fragment instances for each section (notes, checklist, calendar)
-    private final AgregarNotaFragment agregarNotaFragment = new AgregarNotaFragment();
+    private final VerNotasFragment verNotasFragment = new VerNotasFragment();
     private final CheckListYIPPIEEEFragment checkListYIPPIEEEFragment = new CheckListYIPPIEEEFragment();
     private final CalendarioFragment verCalendarioFragment = new CalendarioFragment();
 
@@ -32,8 +32,9 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnItemSelectedListener(mOnNavigationItemSelectedListener);
 
         // Load the default fragment at startup
-        loadFragment(agregarNotaFragment);
+        loadFragment(verCalendarioFragment);
     }
+
 
 
     // Listener to handle selections in BottomNavigationView
@@ -44,9 +45,9 @@ public class MainActivity extends AppCompatActivity {
                     Fragment selectedFragment = null;
 
                     if (item.getItemId() == R.id.notas) {
-                        selectedFragment = agregarNotaFragment;
+                        selectedFragment = verNotasFragment;
                         loadFragment(selectedFragment);
-                        Log.d("MainActivity", "Selected fragment: AgregarNotaFragment");
+                        Log.d("MainActivity", "Selected fragment: VerNotasFragment");
                     } else if (item.getItemId() == R.id.checklist) {
                         selectedFragment = checkListYIPPIEEEFragment;
                         loadFragment(selectedFragment);
