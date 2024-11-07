@@ -8,34 +8,32 @@
 
     <Button
         android:id="@+id/buttonDescartar"
-        android:layout_width="0dp"
+        android:layout_width="182dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="56dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="72dp"
         android:text="Descartar"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/buttonAceptar"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout" />
+        app:layout_constraintTop_toBottomOf="@+id/layout"
+        app:layout_constraintVertical_bias="0.513" />
 
     <Button
         android:id="@+id/buttonAceptar"
-        android:layout_width="0dp"
+        android:layout_width="182dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="31dp"
         android:layout_marginTop="56dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
         android:text="Crear recordatorio"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/buttonDescartar"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.513" />
 
     <RelativeLayout
         android:id="@+id/layout"
@@ -55,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/sticky7" />
+            app:srcCompat="@drawable/sticky2" />
 
         <EditText
             android:id="@+id/textoRecord"
@@ -79,9 +77,19 @@
             android:layout_marginBottom="15dp"
             android:hint="25/10/2024"
             android:textAlignment="textEnd"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:visibility="invisible" />
 
 
     </RelativeLayout>
+
+    <Spinner
+        android:id="@+id/tiponotaSpinner"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

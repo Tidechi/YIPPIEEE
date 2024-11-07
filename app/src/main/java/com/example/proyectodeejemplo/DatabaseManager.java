@@ -198,9 +198,16 @@ public class DatabaseManager {
         ContentValues values = new ContentValues();
         values.put("tiponota", recordatorio.getTiponota());
         values.put("sticker", recordatorio.getSticker());
-        values.put("fecha", recordatorio.getFecha());
         values.put("texto", recordatorio.getTexto());
-        db.update("Recordatorios", values, "id = ?", new String[]{String.valueOf(recordatorio.getId())});
+
+        // Update based on fecha instead of id
+        int rowsUpdated = db.update("Recordatorios", values, "fecha = ?", new String[]{recordatorio.getFecha()});
+        if (rowsUpdated > 0) {
+            Log.d("Database", "Recordatorio actualizado para la fecha: " + recordatorio.getFecha());
+        } else {
+            Log.e("Database", "No se actualizó ningún recordatorio...");
+        }
+
         db.close();
     }
 
@@ -229,6 +236,46 @@ public class DatabaseManager {
         cursor.close();
         db.close();
         Log.d("Database", "No se encontro un recordatorio con ese id...");
+    }
+
+    //Encontrar recordatorio por fecha
+    public boolean findRecordatorioByFecha(String fecha) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Recordatorios WHERE fecha = ?", new String[]{fecha});
+        if (cursor != null && cursor.moveToFirst()) {
+            int id = cursor.getInt(0);
+            int tiponota = cursor.getInt(1);
+            int sticker = cursor.getInt(2);
+            String texto = cursor.getString(4);
+            Recordatorio recordatorio = new Recordatorio(id, tiponota, sticker, fecha, texto);
+            cursor.close();
+            db.close();
+            Log.d("Database", "Recordatorio encontrado: " + recordatorio.getTexto());
+            return true;
+        } else {
+        cursor.close();
+        db.close();
+        Log.d("Database", "No se encontro un recordatorio con esa fecha...");
+        }
+        return false;
+    }
+
+    public Recordatorio findRecordatorioByFechaGPT(String fecha) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Recordatorios WHERE fecha = ?", new String[]{fecha});
+        Recordatorio recordatorio = null;
+
+        if (cursor != null && cursor.moveToFirst()) {
+            int id = cursor.getInt(0);
+            int tiponota = cursor.getInt(1);
+            int sticker = cursor.getInt(2);
+            String texto = cursor.getString(4);
+            recordatorio = new Recordatorio(id, tiponota, sticker, fecha, texto);
+        }
+
+        if (cursor != null) cursor.close();
+        db.close();
+        return recordatorio; // Returns null if no record found
     }
 
     //Metodos para la Checklist

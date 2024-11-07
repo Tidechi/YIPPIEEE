@@ -20,6 +20,9 @@
             android:name=".CheckListYIPPIEEE"
             android:exported="false" />
         <activity
+            android:name=".AgregarRecordatorios"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"/>
         <activity
