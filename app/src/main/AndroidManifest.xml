@@ -23,6 +23,9 @@
             android:name=".AgregarRecordatorios"
             android:exported="false" />
         <activity
+            android:name=".AgregarRecordatoriosCuadrados"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"/>
         <activity

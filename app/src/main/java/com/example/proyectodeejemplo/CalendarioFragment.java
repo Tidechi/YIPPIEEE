@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.proyectodeejemplo.databinding.AgregarrecordatoriosBinding;
+import com.example.proyectodeejemplo.databinding.AgregarrecordatorioscuadradosBinding;
 import com.example.proyectodeejemplo.databinding.VercalendarioBinding;
 
 import java.util.Calendar;
@@ -26,7 +27,7 @@ public class CalendarioFragment extends Fragment {
 
         try {
             // Inflate AgregarRecordatorios layout and get the root layout
-            AgregarrecordatoriosBinding agregarBinding = AgregarrecordatoriosBinding.inflate(inflater, container, false);
+            AgregarrecordatorioscuadradosBinding agregarBinding = AgregarrecordatorioscuadradosBinding.inflate(inflater, container, false);
 
             // Clear any previous views to prevent duplicates, then add the new layout
             binding.reminderFrame.removeAllViews();
@@ -36,9 +37,7 @@ public class CalendarioFragment extends Fragment {
             loadRecordatorioForToday(agregarBinding);
             agregarBinding.fechaview.setVisibility(View.GONE);
             agregarBinding.tiponotaSpinner.setVisibility(View.GONE);
-            agregarBinding.buttonAceptar.setVisibility(View.GONE);
-            agregarBinding.buttonDescartar.setVisibility(View.GONE);
-            agregarBinding.textoRecord.setTextSize(5);
+            agregarBinding.textoRecord.setTextSize(13);
 
 
         } catch (Exception e) {
@@ -48,7 +47,7 @@ public class CalendarioFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private void loadRecordatorioForToday(AgregarrecordatoriosBinding agregarBinding) {
+    private void loadRecordatorioForToday(AgregarrecordatorioscuadradosBinding agregarBinding) {
         // Initialize your database manager
         DatabaseManager dbManager = new DatabaseManager(requireContext());
 
@@ -60,6 +59,7 @@ public class CalendarioFragment extends Fragment {
 
         if (recordatorio != null) {
             // Populate fields if a reminder exists
+            binding.reminderFrame.setBackground(getResources().getDrawable(R.drawable.rounded_bg));
             agregarBinding.textoRecord.setText(recordatorio.getTexto());
             agregarBinding.fechaview.setText(recordatorio.getFecha());
 
@@ -78,6 +78,7 @@ public class CalendarioFragment extends Fragment {
             }
         } else {
             Log.w("CalendarioFragment", "No reminder found for today's date");
+            binding.reminderFrame.setBackground(getResources().getDrawable(R.drawable.rounded_bg_blank));
         }
     }
 
