@@ -1,22 +1,31 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+    <!-- Base application theme -->
     <style name="Base.Theme.ProyectoDeEjemplo" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-    </style>
-
-    <style name="debugging_theme" parent="Theme.Material3.Light.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Customize light and dark theme colors -->
         <item name="colorPrimary">@color/Primary</item>
         <item name="colorSecondary">@color/Secondary</item>
         <item name="colorTertiary">@color/Tertiary</item>
+        <item name="color">@color/background_color</item>
+        <item name="colorOnPrimary">@color/text_color</item>
+        <item name="colorOnSecondary">@color/icon_color</item>
     </style>
 
-    <style name="debugging_theme.buttons" >
-        <item name="android:background">@color/light_beige</item>
+    <!-- Light theme specifically for debugging -->
+    <style name="debugging_theme" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/choco_brown</item>
+        <item name="colorSecondary">@color/chill_toast</item>
+        <item name="colorTertiary">@color/Tertiary</item>
+        <item name="color">@color/background_color</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnSecondary">@color/icon_color</item>
     </style>
 
+    <!-- Custom style for buttons -->
+    <style name="debugging_theme.buttons">
+        <item name="android:background">@color/accent_brown</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
 
+    <!-- Main application theme -->
     <style name="Theme.ProyectoDeEjemplo" parent="Base.Theme.ProyectoDeEjemplo" />
 </resources>

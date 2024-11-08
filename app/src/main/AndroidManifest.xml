@@ -30,11 +30,9 @@
             android:exported="true"/>
         <activity
             android:name=".VerNotas"
-            android:exported="true"
-            android:theme="@style/debugging_theme"/>
+            android:exported="true"/>
         <activity
             android:name=".debugMenu"
-            android:theme="@style/Theme.ProyectoDeEjemplo"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
