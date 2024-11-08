@@ -19,6 +19,7 @@ import java.util.Calendar;
 public class CalendarioFragment extends Fragment {
 
     private VercalendarioBinding binding;
+    private String todayDate;
 
     @Nullable
     @Override
@@ -26,19 +27,25 @@ public class CalendarioFragment extends Fragment {
         binding = VercalendarioBinding.inflate(inflater, container, false);
 
         try {
+            // Set up CalendarView listener for date selection
+            binding.calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
+                // Call onDateSelected with the selected date from CalendarView
+                onDateSelected(dayOfMonth, month + 1, year); // month is zero-based, so add 1
+            });
+
             // Inflate AgregarRecordatorios layout and get the root layout
             AgregarrecordatorioscuadradosBinding agregarBinding = AgregarrecordatorioscuadradosBinding.inflate(inflater, container, false);
 
-            // Clear any previous views to prevent duplicates, then add the new layout
+            // Clear any previous views and add the initial layout
             binding.reminderFrame.removeAllViews();
             binding.reminderFrame.addView(agregarBinding.getRoot());
+            todayDate = getTodaysDate();
 
-            // Retrieve and display the reminder for today's date
+            // Display reminder for today’s date
             loadRecordatorioForToday(agregarBinding);
             agregarBinding.fechaview.setVisibility(View.GONE);
             agregarBinding.tiponotaSpinner.setVisibility(View.GONE);
             agregarBinding.textoRecord.setTextSize(13);
-
 
         } catch (Exception e) {
             Log.e("CalendarioFragment", "Error inflating or adding view", e);
@@ -52,7 +59,6 @@ public class CalendarioFragment extends Fragment {
         DatabaseManager dbManager = new DatabaseManager(requireContext());
 
         // Get today's date
-        String todayDate = getTodaysDate();
 
         // Retrieve recordatorio for today
         Recordatorio recordatorio = dbManager.findRecordatorioByFechaGPT(todayDate);
@@ -98,5 +104,32 @@ public class CalendarioFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    //method that changes todaydate depending on the press on the calendarview and refreshes the view
+    public void onDateSelected(int day, int month, int year) {
+        // Update the `todayDate` variable with the new date
+        todayDate = makeDateString(day, month, year);
+
+        try {
+            // Re-inflate the AgregarRecordatorios layout to refresh the reminderFrame
+            LayoutInflater inflater = LayoutInflater.from(requireContext());
+            AgregarrecordatorioscuadradosBinding agregarBinding = AgregarrecordatorioscuadradosBinding.inflate(inflater, binding.reminderFrame, false);
+
+            // Clear any previous views to prevent duplicates, then add the new layout
+            binding.reminderFrame.removeAllViews();
+            binding.reminderFrame.addView(agregarBinding.getRoot());
+
+            // Hide unwanted elements as before
+            agregarBinding.fechaview.setVisibility(View.GONE);
+            agregarBinding.tiponotaSpinner.setVisibility(View.GONE);
+            agregarBinding.textoRecord.setTextSize(13);
+
+            // Load and display the reminder for the selected date
+            loadRecordatorioForToday(agregarBinding);
+
+        } catch (Exception e) {
+            Log.e("CalendarioFragment", "Error updating view on date selection", e);
+        }
     }
 }
