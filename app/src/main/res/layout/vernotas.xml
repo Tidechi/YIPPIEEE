@@ -9,13 +9,16 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="500dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_bg_less"
+        android:backgroundTint="@color/yellowish_butter"
         android:orientation="vertical"
+        android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +27,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerNotas"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:padding="3dp" />
     </LinearLayout>
 
     <ImageView

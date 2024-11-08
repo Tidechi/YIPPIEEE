@@ -28,23 +28,39 @@ import androidx.fragment.app.Fragment;
 
 public class AgregarNotaFragment extends Fragment {
 
-    AgregarnotasBinding binding;
+    private AgregarnotasBinding binding;
     private DatePickerDialog datePickerDialog;
+    private boolean isEditing = false;
+    private int editingNoteId = -1;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        //Inicializar el binding en un fragment
-        binding = AgregarnotasBinding.inflate(inflater,container,false);
+        binding = AgregarnotasBinding.inflate(inflater, container, false);
         View v = binding.getRoot();
 
-        //base datos
         DatabaseManager dbManager = new DatabaseManager(getContext());
-
         initDatePicker();
         binding.editFecha.setText(getTodaysDate());
 
+        // Check if we're editing an existing note
+        Bundle args = getArguments();
+        if (args != null) {
+            editingNoteId = args.getInt("noteId", -1);
+            String titulo = args.getString("titulo");
+            String texto = args.getString("texto");
+            String fecha = args.getString("fecha");
+
+            if (editingNoteId != -1) {
+                isEditing = true;
+                // Populate fields for editing
+                binding.editTitulo.setText(titulo);
+                binding.editTexto.setText(texto);
+                binding.editFecha.setText(fecha);
+            }
+        }
+
+        // Set the save button to either update or insert based on editing status
         binding.saveNota.setOnClickListener(view -> {
             String fecha = binding.editFecha.getText().toString();
             String titulo = binding.editTitulo.getText().toString();
@@ -54,13 +70,23 @@ public class AgregarNotaFragment extends Fragment {
             if (fecha.isEmpty() || titulo.isEmpty() || texto.isEmpty()) {
                 Toast.makeText(getContext(), "Por favor, complete todos los campos.", Toast.LENGTH_SHORT).show();
             } else {
-                Nota nota = new Nota(0, fecha, titulo, texto, design);
-                dbManager.insertNota(nota);
+                if (isEditing) {
+                    // Update existing note
+                    Nota nota = new Nota(editingNoteId, fecha, titulo, texto, design);
+                    dbManager.updateNota(nota);
+                    Toast.makeText(getContext(), "Nota actualizada", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Insert new note
+                    Nota nota = new Nota(0, fecha, titulo, texto, design);
+                    dbManager.insertNota(nota);
+                    Toast.makeText(getContext(), "Nota guardada", Toast.LENGTH_SHORT).show();
+                }
 
                 // Return to VerNotasFragment
                 getParentFragmentManager().popBackStack();
             }
         });
+
         binding.editFecha.setOnClickListener(view -> {
             if (isAdded()) {
                 showDatePicker(view);

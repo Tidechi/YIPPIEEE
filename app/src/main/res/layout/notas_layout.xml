@@ -2,17 +2,21 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/eachnota"
+    style="@style/debugging_theme"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/eachnota"
-    style="@style/debugging_theme">
+    android:background="@drawable/rounded_bg_less"
+    android:padding="7dp">
 
     <TextView
         android:id="@+id/eltitulo"
+        style="@style/debugging_theme.textViews.notasview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Titulo"
-        android:textSize="16sp"
+        android:textAlignment="viewStart"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/lafecha"
         app:layout_constraintHorizontal_bias="0.5"
@@ -21,10 +25,12 @@
 
     <TextView
         android:id="@+id/lafecha"
+        style="@style/debugging_theme.textViews.notasview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Fecha"
         android:textAlignment="textEnd"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/eltitulo"
@@ -32,10 +38,13 @@
 
     <TextView
         android:id="@+id/ladescripcion"
+        style="@style/debugging_theme.textViews.notasview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:hint="Descripcion de la nota"
-        android:textSize="14sp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eltitulo" />

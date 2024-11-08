@@ -61,9 +61,26 @@ public class VerNotasFragment extends Fragment implements RecyclerViewInterface,
         return v;
     }
 
-    @Override
     public void onNotaClick(int position) {
-        Intent intent = new Intent(getContext(), AgregarNotaFragment.class);
+        // Get the selected note from the adapter
+        DatabaseManager dbManager = new DatabaseManager(getContext());
+        List<Nota> notas = dbManager.getAllNotas();
+        Nota selectedNota = notas.get(position);
+
+        // Create a new instance of AgregarNotaFragment and pass the selected note data
+        AgregarNotaFragment agregarNotaFragment = new AgregarNotaFragment();
+        Bundle args = new Bundle();
+        args.putInt("noteId", selectedNota.getId());  // assuming you have an ID to identify the note
+        args.putString("titulo", selectedNota.getTitulo());
+        args.putString("texto", selectedNota.getTexto());
+        args.putString("fecha", selectedNota.getFecha());
+        agregarNotaFragment.setArguments(args);
+
+        // Begin the fragment transaction
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.VerNotasFragmentContainer, agregarNotaFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     public void onAddNotaButtonClick(View view) {
