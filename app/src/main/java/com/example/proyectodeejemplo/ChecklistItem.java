@@ -44,6 +44,10 @@ public class ChecklistItem {
         this.estado = estado;
     }
 
+    public void setCompleted(boolean completed) {
+        this.estado = completed;
+    }
+
     private int id;
     private String fecha;
     private String texto;

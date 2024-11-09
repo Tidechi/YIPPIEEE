@@ -369,4 +369,26 @@ public class DatabaseManager {
         db.update("Checklist", values, "id = ?", new String[]{String.valueOf(checklistItem.getId())});
         db.close();
     }
+
+    public ArrayList<ChecklistItem> getUncheckedItemsByFecha(String fecha) {
+        ArrayList<ChecklistItem> checklistItems = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Checklist WHERE fecha = ? AND estado = 0", new String[]{fecha});
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(0);
+                String texto = cursor.getString(2);
+                boolean estado = cursor.getInt(3) == 1;
+                ChecklistItem checklistItem = new ChecklistItem(id, fecha, texto, estado);
+                checklistItems.add(checklistItem);
+                Log.d("Database", "Item encontrado: " + checklistItem.getTexto());
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        db.close();
+        Log.d("Database", "Total unchecked items retrieved: " + checklistItems.size());
+        return checklistItems;
+
+    }
 }
