@@ -391,4 +391,41 @@ public class DatabaseManager {
         return checklistItems;
 
     }
+
+    //Metodos para el mood
+    public void insertMood(Mood mood){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("fecha", mood.getFecha());
+        values.put("estado", mood.getEstado());
+        long result = db.insert("Mood", null, values);
+        if (result == -1) {
+            Log.e("Database", "No se inserto nada...");
+        } else {
+            Log.d("Database", "Mood insertado con id: " + result);
+        }
+        db.close();
+    }
+
+    public Mood obtenerMoodPorFecha(String fecha) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Mood WHERE fecha = ?", new String[]{fecha});
+        Mood mood = null;
+        if (cursor.moveToFirst()) {
+            int id = cursor.getInt(0);
+            String estado = cursor.getString(2);
+            mood = new Mood(id, fecha, estado);
+        }
+        cursor.close();
+        db.close();
+        return mood;
+    }
+
+    public void actualizarMood(Mood mood) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("estado", mood.getEstado());
+        db.update("Mood", values, "fecha = ?", new String[]{mood.getFecha()});
+        db.close();
+    }
 }

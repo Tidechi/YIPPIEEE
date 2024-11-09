@@ -22,7 +22,7 @@ public class debugMenu extends AppCompatActivity {
         binding.button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(debugMenu.this, AgregarRecordatorios.class);
+                Intent intent = new Intent(debugMenu.this, AnimosVista.class);
                 startActivity(intent);
             }
         });

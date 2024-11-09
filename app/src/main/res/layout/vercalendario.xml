@@ -132,7 +132,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="14dp"
             android:layout_marginBottom="17dp"
-            android:fontFamily="@font/handmade"
+            android:fontFamily="@font/simplerhand"
             android:gravity="center"
             android:text="Todo saldrá bien :)"
             android:textAlignment="center"

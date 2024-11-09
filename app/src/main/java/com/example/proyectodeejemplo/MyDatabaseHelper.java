@@ -10,7 +10,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "appdiario.db";
 
     // Database version
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     public MyDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -51,16 +51,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         String createMoodTable = "CREATE TABLE Mood (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "fecha TEXT," +
-                "estado INTEGER" +
+                "estado TEXt" +
                 ");";
         db.execSQL(createMoodTable);
-
-        // Creating Animos disponibles table
-        String createAnimoTable = "CREATE TABLE Animo (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "emocion TEXT" +
-                ");";
-        db.execSQL(createAnimoTable);
 
         // Creating Designs table
         String createDesignsTable = "CREATE TABLE Designs (" +
@@ -84,7 +77,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS Checklist");
         db.execSQL("DROP TABLE IF EXISTS Recordatorios");
         db.execSQL("DROP TABLE IF EXISTS Mood");
-        db.execSQL("DROP TABLE IF EXISTS Animo");
         db.execSQL("DROP TABLE IF EXISTS Designs");
         db.execSQL("DROP TABLE IF EXISTS TipoNota");
 
