@@ -2,13 +2,13 @@
     <item
         android:id="@+id/notas"
         android:title="Notas"
-        android:icon="@android:drawable/ic_input_add"/>
+        android:icon="@drawable/notas"/>
     <item
         android:id="@+id/checklist"
         android:title="Checklist"
-        android:icon="@android:drawable/checkbox_on_background"/> <!-- Ensure tint is consistent -->
+        android:icon="@drawable/checklist"/> <!-- Ensure tint is consistent -->
     <item
         android:id="@+id/calendario"
         android:title="Calendario"
-        android:icon="@android:drawable/ic_menu_my_calendar"/> <!-- Ensure tint is consistent -->
+        android:icon="@drawable/calendario"/> <!-- Ensure tint is consistent -->
 </menu>

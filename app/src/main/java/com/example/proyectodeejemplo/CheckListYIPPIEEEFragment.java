@@ -66,6 +66,13 @@ public class CheckListYIPPIEEEFragment extends Fragment implements TaskManager.C
         return v;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Reload checklist items and update progress bar when fragment becomes visible
+        taskManager.cargarItems();
+    }
+
     private String getTodaysDate() {
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);

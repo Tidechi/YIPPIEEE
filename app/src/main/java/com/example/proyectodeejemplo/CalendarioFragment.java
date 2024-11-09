@@ -61,6 +61,15 @@ public class CalendarioFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Reload data every time the fragment becomes visible
+        loadRecordatorioForToday();
+        loadChecklistItemsForToday();
+        displayCurrentMood();
+    }
+
     private void displayCurrentMood() {
         Mood mood = dbManager.obtenerMoodPorFecha(todayDate); // Use todayDate for selected date
         if (mood != null) {
@@ -76,6 +85,9 @@ public class CalendarioFragment extends Fragment {
                     break;
             }
         }
+        else {
+            binding.moodLayout.setBackground(getResources().getDrawable(R.drawable.circle_bg_blank));
+        }
     }
 
     private void loadRecordatorioForToday() {
@@ -90,7 +102,9 @@ public class CalendarioFragment extends Fragment {
             agregarBinding.fechaview.setText(recordatorio.getFecha());
             agregarBinding.tiponotaSpinner.setSelection(recordatorio.getTiponota() - 1);
             agregarBinding.imageView.setImageResource(getResources().getIdentifier("sticky" + recordatorio.getTiponota(), "drawable", requireContext().getPackageName()));
+            binding.reminderFrame.setBackground(getResources().getDrawable(R.drawable.rounded_bg));
         } else {
+            agregarBinding.imageView.setVisibility(View.GONE);
             binding.reminderFrame.setBackground(getResources().getDrawable(R.drawable.rounded_bg_blank));
         }
     }

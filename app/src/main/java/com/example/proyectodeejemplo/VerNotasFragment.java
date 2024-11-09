@@ -8,37 +8,25 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import com.example.proyectodeejemplo.databinding.ActivityCheckListYippieeeBinding;
-import com.example.proyectodeejemplo.databinding.VernotasBinding;
-import android.content.Intent;
-import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyectodeejemplo.databinding.VernotasBinding;
-import com.example.proyectodeejemplo.databinding.ActivityMainBinding;
 
 import java.util.List;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
-public class VerNotasFragment extends Fragment implements RecyclerViewInterface, OnNotaSavedListener{
+public class VerNotasFragment extends Fragment implements RecyclerViewInterface, OnNotaSavedListener {
 
     private VernotasBinding binding;
+    private NotesAdapter adapter;
+    private DatabaseManager dbManager;
 
     @Override
     public void onNotaSaved() {
-        // Reload the notes from the database
-        DatabaseManager dbManager = new DatabaseManager(getContext());
+        // Reload notes and update the adapter's data without creating a new adapter instance
         List<Nota> updatedNotas = dbManager.getAllNotas();
-
-        // Update the adapter's data
-        NotesAdapter adapter = new NotesAdapter(updatedNotas, this);
-        binding.recyclerNotas.setAdapter(adapter);
+        adapter.updateData(updatedNotas);
     }
 
     @Nullable
@@ -48,12 +36,13 @@ public class VerNotasFragment extends Fragment implements RecyclerViewInterface,
         View v = binding.getRoot();
 
         // Set up database and RecyclerView for displaying notes
-        DatabaseManager dbManager = new DatabaseManager(getContext());
+        dbManager = new DatabaseManager(getContext());
         List<Nota> notas = dbManager.getAllNotas();
-        RecyclerView recyclerView = binding.recyclerNotas;
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        NotesAdapter adapter = new NotesAdapter(notas, this);
-        recyclerView.setAdapter(adapter);
+        binding.recyclerNotas.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Initialize adapter once and set it to RecyclerView
+        adapter = new NotesAdapter(notas, this);
+        binding.recyclerNotas.setAdapter(adapter);
 
         // Set click listener for add note button
         binding.agregarNotaButton.setOnClickListener(this::onAddNotaButtonClick);
@@ -61,22 +50,26 @@ public class VerNotasFragment extends Fragment implements RecyclerViewInterface,
         return v;
     }
 
-    public void onNotaClick(int position) {
-        // Get the selected note from the adapter
-        DatabaseManager dbManager = new DatabaseManager(getContext());
-        List<Nota> notas = dbManager.getAllNotas();
-        Nota selectedNota = notas.get(position);
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Refresh the notes list each time the fragment becomes visible
+        onNotaSaved();
+    }
 
-        // Create a new instance of AgregarNotaFragment and pass the selected note data
+    public void onNotaClick(int position) {
+        // Get the selected note and pass data to AgregarNotaFragment
+        Nota selectedNota = adapter.getNotaAt(position); // get the note directly from the adapter
+
         AgregarNotaFragment agregarNotaFragment = new AgregarNotaFragment();
         Bundle args = new Bundle();
-        args.putInt("noteId", selectedNota.getId());  // assuming you have an ID to identify the note
+        args.putInt("noteId", selectedNota.getId());
         args.putString("titulo", selectedNota.getTitulo());
         args.putString("texto", selectedNota.getTexto());
         args.putString("fecha", selectedNota.getFecha());
         agregarNotaFragment.setArguments(args);
 
-        // Begin the fragment transaction
+        // Start transaction to replace VerNotasFragment with AgregarNotaFragment
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.VerNotasFragmentContainer, agregarNotaFragment);
         transaction.addToBackStack(null);
@@ -84,18 +77,10 @@ public class VerNotasFragment extends Fragment implements RecyclerViewInterface,
     }
 
     public void onAddNotaButtonClick(View view) {
+        // Replace VerNotasFragment with AgregarNotaFragment to add a new note
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.replace(R.id.VerNotasFragmentContainer, new AgregarNotaFragment()); // Replace VerNotasFragment with AgregarNotaFragment
-        transaction.addToBackStack(null); // Allows back navigation to VerNotasFragment
+        transaction.replace(R.id.VerNotasFragmentContainer, new AgregarNotaFragment());
+        transaction.addToBackStack(null);
         transaction.commit();
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        // This ensures the list is also refreshed when the user manually returns to this fragment
-        onNotaSaved();
-    }
-
-
 }

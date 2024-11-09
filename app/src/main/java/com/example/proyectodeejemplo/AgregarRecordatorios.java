@@ -57,15 +57,16 @@ public class AgregarRecordatorios extends AppCompatActivity {
                 if (existingRecordatorio != null) {
                     dbManager.updateRecordatorio(recordatorio);
                     Toast.makeText(this, "Recordatorio actualizado", Toast.LENGTH_SHORT).show();
+                    finish();
                 } else {
                     dbManager.insertRecordatorio(recordatorio);
                     Toast.makeText(this, "Recordatorio agregado", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
             }
         });
         binding.buttonDescartar.setOnClickListener(view -> {
-            binding.textoRecord.setText("");
-            Toast.makeText(this, "Recordatorio descartado", Toast.LENGTH_SHORT).show();
+            finish();
         });
 
         binding.tiponotaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -73,7 +74,6 @@ public class AgregarRecordatorios extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 int selectedItem = position + 1;
                 binding.imageView.setImageResource(getResources().getIdentifier("sticky" + selectedItem, "drawable", getPackageName()));
-                Toast.makeText(AgregarRecordatorios.this, "Seleccionaste: " + selectedItem, Toast.LENGTH_SHORT).show();
             }
 
             @Override

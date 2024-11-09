@@ -11,13 +11,21 @@ import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
     private final RecyclerViewInterface recyclerViewInterface;
-
-
     private List<Nota> ListaNotas;
 
     public NotesAdapter(List<Nota> ListaNotas, RecyclerViewInterface recyclerViewInterface) {
         this.ListaNotas = ListaNotas;
         this.recyclerViewInterface = recyclerViewInterface;
+    }
+
+    // Method to update the dataset and refresh the RecyclerView
+    public void updateData(List<Nota> newNotas) {
+        this.ListaNotas = newNotas;
+        notifyDataSetChanged(); // Notify RecyclerView to rebind all views
+    }
+
+    public Nota getNotaAt(int position) {
+        return ListaNotas.get(position);
     }
 
     @NonNull
@@ -53,14 +61,11 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             fechaTextView = itemView.findViewById(R.id.lafecha);
             descripcionTextView = itemView.findViewById(R.id.ladescripcion);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (recyclerViewInterface != null){
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION){
-                            recyclerViewInterface.onNotaClick(position);
-                        };
+            itemView.setOnClickListener(view -> {
+                if (recyclerViewInterface != null) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        recyclerViewInterface.onNotaClick(position);
                     }
                 }
             });
