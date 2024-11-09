@@ -1,5 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/calendario"
+        android:title="Calendario"
+        android:icon="@drawable/calendario"/> <!-- Ensure tint is consistent -->
+    <item
         android:id="@+id/notas"
         android:title="Notas"
         android:icon="@drawable/notas"/>
@@ -7,8 +11,4 @@
         android:id="@+id/checklist"
         android:title="Checklist"
         android:icon="@drawable/checklist"/> <!-- Ensure tint is consistent -->
-    <item
-        android:id="@+id/calendario"
-        android:title="Calendario"
-        android:icon="@drawable/calendario"/> <!-- Ensure tint is consistent -->
 </menu>

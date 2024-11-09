@@ -29,4 +29,7 @@
     <color name="background_color">#f8f5f0</color>
     <color name="text_color">#5D4037</color> <!-- Muted Brown for text -->
     <color name="icon_color">#F2C94C</color> <!-- Yellow for icons -->
+
+
+
 </resources>

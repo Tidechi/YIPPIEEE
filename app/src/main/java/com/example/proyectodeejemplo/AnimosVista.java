@@ -2,6 +2,8 @@ package com.example.proyectodeejemplo;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.proyectodeejemplo.databinding.ActivityAnimosVistaBinding;
 import java.util.Calendar;
@@ -10,6 +12,11 @@ public class AnimosVista extends AppCompatActivity {
     private String fechaDeHoy;
     private DatabaseManager dbManager;
     private ActivityAnimosVistaBinding binding;
+
+    private TextView dateTimeTextView;
+    private DateManager dateManager;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +28,17 @@ public class AnimosVista extends AppCompatActivity {
 
         fechaDeHoy = getTodaysDate();
 
-        binding.BotonTriste.setOnClickListener(new View.OnClickListener() {
+
+        //Esto es sólo por el detalle estético que agregué al bosquejo pa que se vea la fecha y hora actuales ¿
+        DateManager dateManager = new DateManager();
+        dateTimeTextView = findViewById(R.id.dateTimeTextView);
+        String currentDateAndTime = dateManager.getTodaysDate();
+
+        dateTimeTextView.setText(currentDateAndTime);
+
+
+
+        binding.triste.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveMood("triste");
@@ -29,7 +46,7 @@ public class AnimosVista extends AppCompatActivity {
             }
         });
 
-        binding.BotonSerio.setOnClickListener(new View.OnClickListener() {
+        binding.neutral.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveMood("neutral");
@@ -37,7 +54,7 @@ public class AnimosVista extends AppCompatActivity {
             }
         });
 
-        binding.BotonFeliz.setOnClickListener(new View.OnClickListener() {
+        binding.feliz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveMood("feliz");
@@ -68,4 +85,6 @@ public class AnimosVista extends AppCompatActivity {
         int day = cal.get(Calendar.DAY_OF_MONTH);
         return makeDateString(day, month, year);
     }
+
+
 }
