@@ -18,6 +18,7 @@
         <item name="colorOnPrimary">@color/onPrimary</item>
         <item name="colorOnSecondary">@color/onSecondary</item>
         <item name="colorOnTertiary">@color/onTertiary</item>
+        <item name="android:windowBackground">@color/Background</item>
         <item name="colorOnBackground">@color/onBackground</item>
         <item name="colorSurface">@color/white</item>
         <item name="colorOnSurface">@color/brownish_words</item>
@@ -36,6 +37,13 @@
         <item name="android:letterSpacing">0.08</item>
         <item name="android:textSize">20sp</item>
     </style>
+
+    <!-- Custom style for constraint layouts -->
+    <style name="debugging_theme.ConstraintLayout">
+        <item name="android:backgroundTint">@color/Background</item>
+
+    </style>
+
 
     <style name="debugging_theme.NavBar" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
         <item name="android:color">@color/choco_brown</item>

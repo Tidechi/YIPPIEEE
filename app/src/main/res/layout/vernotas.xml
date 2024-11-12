@@ -17,7 +17,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_bg_less"
-        android:backgroundTint="@color/yellowish_butter"
+        android:backgroundTint="@color/onBackground"
         android:orientation="vertical"
         android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
