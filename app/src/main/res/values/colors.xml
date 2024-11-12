@@ -30,6 +30,9 @@
     <color name="onTertiary">#82635b</color> <!-- brownish_words -->
     <color name="Background">#f8f5f0</color> <!-- back_creamy -->
     <color name="onBackground">#faf5d8</color> <!-- yellowish_butter -->
+    <color name="Fourth">#eddbcf</color> <!-- top_pink -->
+    <color name="onFourth">#d4b2a9</color> <!-- bottom_pink -->
+
 
     <!-- Optional additional colors for different UI elements -->
     <color name="background_color">#f8f5f0</color>

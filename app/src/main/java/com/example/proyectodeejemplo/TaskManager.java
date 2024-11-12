@@ -84,6 +84,8 @@ public class TaskManager {
                 Log.d("TaskManager", "Task loaded: " + item.getTexto() + ", Completed: " + item.getEstado());
 
                 CheckBox cb = new CheckBox(context);
+                cb.setTextColor(context.getResources().getColor(R.color.onTertiary));
+                cb.setTextSize(24);
                 cb.setText(item.getTexto());
                 cb.setChecked(item.getEstado());
                 RG.addView(cb, 0);

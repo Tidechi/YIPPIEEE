@@ -31,8 +31,8 @@
 
     <!-- Custom style for buttons -->
     <style name="debugging_theme.buttons" parent="Widget.Material3.Button">
-        <item name="android:background">@color/accent_brown</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/Primary</item>
+        <item name="android:textColor">@color/onPrimary</item>
         <item name="android:fontFamily">@font/simplerhand</item>
         <item name="android:letterSpacing">0.08</item>
         <item name="android:textSize">20sp</item>
@@ -41,17 +41,26 @@
     <!-- Custom style for constraint layouts -->
     <style name="debugging_theme.ConstraintLayout">
         <item name="android:backgroundTint">@color/Background</item>
-
     </style>
 
+    <!-- Custom style for RadioGroups views -->
+    <style name="debugging_theme.RadioGroup" parent="@android:style/Widget.Material.Light.CompoundButton.RadioButton">
+        <item name="android:textColor">@color/onSecondary</item>
+        <item name="android:fontFamily">@font/simplerhand</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:textSize">20sp</item>
+    </style>
 
     <style name="debugging_theme.NavBar" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
-        <item name="android:color">@color/choco_brown</item>
+        <item name="android:color">@color/Primary</item>
     </style>
 
     <!-- Custom style for text views -->
     <style name="debugging_theme.textViews">
         <item name="android:fontFamily">@font/simplerhand</item>
+        <item name="android:textColor">@color/onSecondary</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:letterSpacing">0.08</item>
     </style>
 
     <style name="debugging_theme.progressBarStyleHorizontal">

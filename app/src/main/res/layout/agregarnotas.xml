@@ -6,16 +6,20 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:theme="@style/debugging_theme"
-    tools:context=".AgregarNotas"
-    app:layout_constraintBottom_toTopOf="@+id/frame_container">
+    tools:context=".AgregarNotas">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginStart="-10dp"
+        android:layout_marginTop="-10dp"
+        android:layout_marginEnd="-10dp"
         android:background="@drawable/rounded_bg"
         android:backgroundTint="@color/fatidic_orange"
         android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
@@ -49,7 +53,7 @@
             android:ems="10"
             android:hint="Titulo aqui"
             android:inputType="text"
-            android:paddingStart="5dp"
+            android:paddingStart="10dp"
             android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/editFecha"
