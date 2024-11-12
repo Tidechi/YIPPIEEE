@@ -5,7 +5,8 @@
     android:id="@+id/VerNotasFragmentContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VerNotas">
+    tools:context=".VerNotas"
+    app:layout_constraintBottom_toTopOf="@+id/frame_container">
 
     <LinearLayout
         android:id="@+id/linearLayout"

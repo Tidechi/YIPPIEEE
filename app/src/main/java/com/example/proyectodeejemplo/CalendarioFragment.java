@@ -129,8 +129,10 @@ public class CalendarioFragment extends Fragment {
             binding.nextCheckItemLayout.addView(checkBox);
         } else {
             TextView noItemsTextView = new TextView(requireContext());
+            noItemsTextView.setPadding(3, 3, 3, 3);
+            noItemsTextView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             noItemsTextView.setText("Completaste tus tareas!");
-            noItemsTextView.setTextSize(12);
+            noItemsTextView.setTextSize(15);
             binding.nextCheckItemLayout.addView(noItemsTextView);
         }
     }

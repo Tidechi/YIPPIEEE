@@ -8,6 +8,7 @@
         android:id="@+id/frame_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_navigation"
         android:layout_weight="1" />
 
     <!--La barrita con los botones -->
@@ -17,8 +18,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="#fbdebe"
+        android:color="@color/Primary"
         app:itemIconTint="@color/color_selector"
         app:itemTextColor="#916254"
+        app:itemActiveIndicatorStyle="@style/debugging_theme.NavBar"
         app:menu="@menu/bottom_navigation" /> <!-- Referencia al menú -->
 
 </RelativeLayout>

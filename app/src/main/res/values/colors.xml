@@ -22,9 +22,14 @@
 
 
     <!-- Set main theme colors to these base colors -->
-    <color name="Primary">#FFDAD1</color> <!-- Light Pink -->
-    <color name="Secondary">#C49A8C</color> <!-- Accent Brown -->
-    <color name="Tertiary">#FFF3E4</color> <!-- Secondary Beige -->
+    <color name="Primary">#916254</color> <!-- choco brown -->
+    <color name="onPrimary">#FFFFFFFF</color> <!-- white -->
+    <color name="Secondary">#e7d8c5</color> <!-- chill_toast -->
+    <color name="onSecondary">#82635b</color> <!-- brownish_words -->
+    <color name="Tertiary">#e9c9a7</color> <!-- fatidic_orange -->
+    <color name="onTertiary">#82635b</color> <!-- brownish_words -->
+    <color name="Background">#f8f5f0</color> <!-- back_creamy -->
+    <color name="onBackground">#82635b</color> <!-- brownish_words -->
 
     <!-- Optional additional colors for different UI elements -->
     <color name="background_color">#f8f5f0</color>

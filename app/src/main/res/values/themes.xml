@@ -12,19 +12,20 @@
 
     <!-- Light theme specifically for debugging -->
     <style name="debugging_theme" parent="Theme.Material3.Light.NoActionBar">
-        <item name="colorPrimary">@color/choco_brown</item>
-        <item name="colorSecondary">@color/chill_toast</item>
-        <item name="colorTertiary">@color/fatidic_orange</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <item name="colorOnSecondary">@color/icon_color</item>
-        <item name="colorOnTertiary">@color/white</item>
-        <item name="colorOnBackground">@color/white</item>
+        <item name="colorPrimary">@color/Primary</item>
+        <item name="colorSecondary">@color/Secondary</item>
+        <item name="colorTertiary">@color/Tertiary</item>
+        <item name="colorOnPrimary">@color/onPrimary</item>
+        <item name="colorOnSecondary">@color/onSecondary</item>
+        <item name="colorOnTertiary">@color/onTertiary</item>
+        <item name="colorOnBackground">@color/onBackground</item>
         <item name="colorSurface">@color/white</item>
         <item name="colorOnSurface">@color/brownish_words</item>
         <item name="colorSurfaceVariant">@color/white</item>
         <item name="colorOnSurfaceVariant">@color/brownish_words</item>
-        <item name="android:textColor">@color/brownish_words</item>
+        <item name="android:textColor">@color/onTertiary</item>
         <item name="android:fontFamily">@font/simplerhand</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <!-- Custom style for buttons -->
@@ -36,10 +37,18 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <style name="debugging_theme.NavBar" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/choco_brown</item>
+    </style>
+
     <!-- Custom style for text views -->
     <style name="debugging_theme.textViews">
         <item name="android:fontFamily">@font/simplerhand</item>
     </style>
+
+    <style name="debugging_theme.progressBarStyleHorizontal">
+    </style>
+
 
     <style name="debugging_theme.textViews.notasview">
         <item name="android:fontFamily">@font/simplerhand</item>
