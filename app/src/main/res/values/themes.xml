@@ -12,24 +12,51 @@
 
     <!-- Light theme specifically for debugging -->
     <style name="debugging_theme" parent="Theme.Material3.Light.NoActionBar">
-        <item name="colorPrimary">@color/choco_brown</item>
-        <item name="colorSecondary">@color/chill_toast</item>
+        <item name="colorPrimary">@color/Primary</item>
+        <item name="colorSecondary">@color/Secondary</item>
         <item name="colorTertiary">@color/Tertiary</item>
-        <item name="color">@color/background_color</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <item name="colorOnSecondary">@color/icon_color</item>
+        <item name="colorOnPrimary">@color/onPrimary</item>
+        <item name="colorOnSecondary">@color/onSecondary</item>
+        <item name="colorOnTertiary">@color/onTertiary</item>
+        <item name="android:windowBackground">@color/Background</item>
+        <item name="colorOnBackground">@color/onBackground</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/brownish_words</item>
+        <item name="colorSurfaceVariant">@color/white</item>
+        <item name="colorOnSurfaceVariant">@color/brownish_words</item>
+        <item name="android:textColor">@color/onTertiary</item>
+        <item name="android:fontFamily">@font/simplerhand</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <!-- Custom style for buttons -->
-    <style name="debugging_theme.buttons">
+    <style name="debugging_theme.buttons" parent="Widget.Material3.Button">
         <item name="android:background">@color/accent_brown</item>
         <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/simplerhand</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <!-- Custom style for constraint layouts -->
+    <style name="debugging_theme.ConstraintLayout">
+        <item name="android:backgroundTint">@color/Background</item>
+
+    </style>
+
+
+    <style name="debugging_theme.NavBar" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/choco_brown</item>
     </style>
 
     <!-- Custom style for text views -->
     <style name="debugging_theme.textViews">
         <item name="android:fontFamily">@font/simplerhand</item>
     </style>
+
+    <style name="debugging_theme.progressBarStyleHorizontal">
+    </style>
+
 
     <style name="debugging_theme.textViews.notasview">
         <item name="android:fontFamily">@font/simplerhand</item>

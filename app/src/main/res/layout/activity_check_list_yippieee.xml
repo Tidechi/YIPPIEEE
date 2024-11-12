@@ -7,116 +7,134 @@
     android:layout_height="match_parent"
     tools:context=".CheckListYIPPIEEE">
 
-    <Button
-        android:id="@+id/OK"
-        android:layout_width="90dp"
-        android:layout_height="47dp"
-        android:layout_marginEnd="32dp"
-        android:baselineAligned="false"
-        android:text="OK !"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/add"
-        app:layout_constraintTop_toTopOf="@+id/add" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/add"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="140dp"
-        android:ems="10"
-        android:hint="+ Add task..."
-        android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/OK"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/confetti"
-        android:layout_width="412dp"
-        android:layout_height="849dp"
-        android:elevation="3dp"
-
-        android:forceHasOverlappingRendering="true"
-        android:src="@drawable/conf"
-        android:visibility="invisible"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="-5dp"
-        tools:visibility="visible"></pl.droidsonroids.gif.GifImageView>
-
-    <LinearLayout
-        android:layout_width="411dp"
-        android:layout_height="501dp"
-        android:orientation="vertical"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="1dp"
-        tools:visibility="visible">
-
-        <TextView
-            android:id="@+id/CONGRATS"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="CONGRATS"
-            android:textAlignment="center"
-            android:textSize="34sp"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            tools:visibility="visible">
+
+            <ImageView
+                android:id="@+id/clip"
+                android:layout_width="103dp"
+                android:layout_height="100dp"
+                android:layout_marginBottom="-40dp"
+                android:elevation="2dp"
+                app:layout_constraintBottom_toTopOf="@+id/TASKRG"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/paperclip" />
+
+            <TextView
+                android:id="@+id/fechaChecklist"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="100dp"
+                android:ems="10"
+                android:gravity="center_vertical"
+                app:layout_constraintBottom_toTopOf="@+id/TASKRG"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="spread_inside" />
+
+            <Button
+                android:id="@+id/OK"
+                android:layout_width="0dp"
+                android:layout_height="47dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="32dp"
+                android:baselineAligned="false"
+                android:text="OK !"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@+id/add"
+                app:layout_constraintTop_toBottomOf="@+id/TASKRG" />
+
+            <EditText
+                android:id="@+id/add"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="1dp"
+                android:ems="10"
+                android:hint="+ Add task..."
+                android:inputType="text"
+                app:layout_constraintEnd_toStartOf="@+id/OK"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_weight="3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/TASKRG" />
+
+            <RadioGroup
+                android:id="@+id/TASKRG"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="90dp"
+                android:background="@drawable/rounded_bg"
+                android:padding="20dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/PBTasks"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fechaChecklist"
+                tools:visibility="visible">
+
+            </RadioGroup>
+
+            <ProgressBar
+                android:id="@+id/PBTasks"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="8dp"
+                android:indeterminateBehavior="repeat"
+                android:progressDrawable="@drawable/progress_custom"
+                android:soundEffectsEnabled="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/conf"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="3dp"
+            android:forceHasOverlappingRendering="true"
+            android:src="@drawable/confetti"
             android:visibility="invisible"
-            tools:visibility="visible" />
+            tools:ignore="MissingConstraints"
+            tools:visibility="gone" />
 
         <ImageView
             android:id="@+id/YIPPIEEE"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="150dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="150dp"
+            android:foregroundGravity="center"
             android:visibility="invisible"
             app:srcCompat="@drawable/yippee"
-            tools:visibility="visible" />
-    </LinearLayout>
+            tools:visibility="gone" />
 
-    <RadioGroup
-        android:id="@+id/TASKRG"
-        android:layout_width="319dp"
-        android:layout_height="361dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fechaChecklist"
-        app:layout_constraintVertical_bias="0.12"
-        tools:visibility="visible">
-
-    </RadioGroup>
-
-    <ProgressBar
-        android:id="@+id/PBTasks"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="319dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="24dp"
-        android:indeterminateBehavior="repeat"
-        android:maxHeight="38dip"
-        android:scrollbarSize="36dp"
-        android:soundEffectsEnabled="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TASKRG"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/fechaChecklist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

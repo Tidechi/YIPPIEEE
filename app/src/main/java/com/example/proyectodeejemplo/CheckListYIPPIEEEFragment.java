@@ -87,9 +87,11 @@ public class CheckListYIPPIEEEFragment extends Fragment implements TaskManager.C
 
     @Override
     public void celebrate() {
-        // Play the celebration sound
+        // Play the celebration sound and show confetti
         MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.yipi);
         mediaPlayer.start();
+        binding.conf.setVisibility(View.VISIBLE);
+        binding.YIPPIEEE.setVisibility(View.VISIBLE);
     }
 
 }
