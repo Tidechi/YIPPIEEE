@@ -35,5 +35,7 @@ public class CheckListYIPPIEEE extends AppCompatActivity {
                 taskManager.agregarTarea(txtTarea, binding.add, binding.PBTasks);
             }
         });
+
+
     }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,7 +17,7 @@ import com.example.proyectodeejemplo.databinding.VernotasBinding;
 
 import java.util.List;
 
-public class VerNotasFragment extends Fragment implements RecyclerViewInterface, OnNotaSavedListener {
+public class VerNotasFragment extends Fragment implements RecyclerViewInterface, OnNotaSavedListener, SearchView.OnQueryTextListener {
 
     private VernotasBinding binding;
     private NotesAdapter adapter;
@@ -44,10 +45,22 @@ public class VerNotasFragment extends Fragment implements RecyclerViewInterface,
         adapter = new NotesAdapter(notas, this);
         binding.recyclerNotas.setAdapter(adapter);
 
-        // Set click listener for add note button
+
+        binding.Buscador.setOnQueryTextListener(this);
         binding.agregarNotaButton.setOnClickListener(this::onAddNotaButtonClick);
 
         return v;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        adapter.filtrar(newText);
+        return true;
     }
 
     @Override

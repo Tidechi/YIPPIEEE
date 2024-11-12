@@ -24,6 +24,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <SearchView
+            android:id="@+id/Buscador"
+            android:layout_width="253dp"
+            android:layout_height="wrap_content"
+             />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerNotas"
             android:layout_width="match_parent"
@@ -44,8 +50,10 @@
         app:layout_constraintHorizontal_bias="0.906"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.555"
+        app:layout_constraintVertical_bias="0.61"
         app:srcCompat="@drawable/pencil"
         tools:srcCompat="@drawable/pencil" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
