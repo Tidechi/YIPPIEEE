@@ -9,61 +9,58 @@
 
     <Button
         android:id="@+id/buttonDescartar"
-        android:layout_width="182dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="24dp"
         android:text="Descartar"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBaseline_toBaselineOf="@+id/buttonAceptar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/buttonAceptar"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout"
-        app:layout_constraintVertical_bias="0.513"
-        tools:visibility="gone" />
+        app:layout_constraintStart_toEndOf="@+id/buttonAceptar"
+        tools:visibility="visible" />
 
     <Button
         android:id="@+id/buttonAceptar"
-        android:layout_width="182dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="56dp"
-        android:text="Crear recordatorio"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="24dp"
+        android:text="Guardar"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/buttonDescartar"
+        app:layout_constraintEnd_toStartOf="@+id/buttonDescartar"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout"
-        app:layout_constraintVertical_bias="0.513"
-        tools:visibility="gone" />
+        app:layout_constraintTop_toBottomOf="@+id/bottomEditor"
+        tools:visibility="visible" />
 
     <RelativeLayout
         android:id="@+id/layout"
-        android:layout_width="311dp"
-        android:layout_height="283dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
         android:background="@drawable/rounded_bg"
         android:backgroundTint="@color/Fourth"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="7dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomEditor"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.136"
-        android:padding="7dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:foregroundGravity="center_vertical|center_horizontal"
+            android:padding="10dp"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/sticky2"
-            tools:visibility="visible"
-            android:padding="10dp"/>
+            tools:visibility="visible" />
 
         <EditText
             android:id="@+id/textoRecord"
@@ -91,58 +88,83 @@
             android:hint="25/10/2024"
             android:textAlignment="textEnd"
             android:textSize="20sp"
-            android:visibility="invisible"
+            android:visibility="visible"
             tools:visibility="visible" />
 
 
     </RelativeLayout>
 
-    <Spinner
-        android:id="@+id/tiponotaSpinner"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="4dp"
-        tools:layout_editor_absoluteY="375dp" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/optionselect"
-        android:layout_width="0dp"
-        android:layout_height="205dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
+        android:id="@+id/bottomEditor"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_bg"
         android:backgroundTint="@color/onFourth"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="w,16:9"
+        app:layout_constraintBottom_toTopOf="@+id/buttonAceptar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.355"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tiponotaSpinner"
-        app:layout_constraintVertical_bias="0.621"
-        tools:visibility="visible">
+        app:layout_constraintTop_toBottomOf="@+id/layout">
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/optionselect"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/rounded_bg"
+            android:backgroundTint="@color/Secondary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.059"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.101" />
+            tools:visibility="visible">
 
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            <Button
+                android:id="@+id/backStyle_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button"
+                app:layout_constraintBottom_toTopOf="@+id/guideline4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.059"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_end="197dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/horizontal_scroller"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline4">
+
+            </androidx.recyclerview.widget.RecyclerView>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:id="@+id/imagesViewer"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical" />
-        </HorizontalScrollView>
+                android:orientation="vertical"
+                tools:layout_editor_absoluteY="88dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

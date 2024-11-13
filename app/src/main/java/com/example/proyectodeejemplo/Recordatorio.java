@@ -9,6 +9,13 @@ public class Recordatorio {
         this.texto = texto;
     }
 
+    public Recordatorio(int tiponota, int sticker, String fecha, String texto) {
+        this.tiponota = tiponota;
+        this.sticker = sticker;
+        this.fecha = fecha;
+        this.texto = texto;
+    }
+
     public int getId() {
         return id;
     }
