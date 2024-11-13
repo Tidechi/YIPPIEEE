@@ -41,9 +41,14 @@ public class AgregarRecordatorios extends AppCompatActivity {
             dbManager = new DatabaseManager(this);
             Log.d("AgregarRecordatorios", "Database initialized successfully");
 
-            fechaDeHoy = getTodaysDate();
-            binding.fechaview.setText(fechaDeHoy);
+            // Check if a date was passed from CalendarioFragment
+            if (getIntent().hasExtra("selected_date")) {
+                fechaDeHoy = getIntent().getStringExtra("selected_date");
+            } else {
+                fechaDeHoy = getTodaysDate();
+            }
 
+            binding.fechaview.setText(fechaDeHoy);
             setupGalleryRecyclerView();
             loadExistingRecordatorio();
 
