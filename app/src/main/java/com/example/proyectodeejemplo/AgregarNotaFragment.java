@@ -2,6 +2,7 @@ package com.example.proyectodeejemplo;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,8 @@ import com.example.proyectodeejemplo.databinding.ActivityMainBinding;
 import com.example.proyectodeejemplo.databinding.VernotasBinding;
 
 import java.util.Calendar;
+import java.util.List;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,8 +28,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 public class AgregarNotaFragment extends Fragment {
+
+
+
+
 
     private AgregarnotasBinding binding;
     private DatePickerDialog datePickerDialog;
@@ -82,8 +90,23 @@ public class AgregarNotaFragment extends Fragment {
                     Toast.makeText(getContext(), "Nota guardada", Toast.LENGTH_SHORT).show();
                 }
 
-                // Return to VerNotasFragment
-                getParentFragmentManager().popBackStack();
+                if (getActivity() instanceof OnNotaSavedListener) {
+                    ((OnNotaSavedListener) getActivity()).onNotaSaved();
+                }
+
+                // Notificar al fragmento que los datos han cambiado
+                if (getActivity() instanceof OnNotaSavedListener) {
+                    ((OnNotaSavedListener) getActivity()).onNotaSaved();
+                }
+
+
+
+                // Para que la lista de Notas se actualice al volver
+                Fragment verNotasFragment = new VerNotasFragment();
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.VerNotasFragmentContainer, verNotasFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
@@ -139,4 +162,16 @@ public class AgregarNotaFragment extends Fragment {
         }
     }
 
+    public interface OnNotaSavedListener {
+        void onNotaSaved(); // Método que notificará al fragmento que los datos han cambiado
+    }
+
+
+
+
+
+
+
+
 }
+

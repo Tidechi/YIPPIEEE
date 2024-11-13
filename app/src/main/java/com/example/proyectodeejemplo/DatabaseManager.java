@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseManager {
 
@@ -147,6 +148,7 @@ public class DatabaseManager {
         db.close();
         return null;
     }
+
 
     //Metodos para los recordatorios #ayuda
 
@@ -428,4 +430,6 @@ public class DatabaseManager {
         db.update("Mood", values, "fecha = ?", new String[]{mood.getFecha()});
         db.close();
     }
+
+
 }

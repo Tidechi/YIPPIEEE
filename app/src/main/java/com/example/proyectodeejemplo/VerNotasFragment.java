@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,17 +17,20 @@ import com.example.proyectodeejemplo.databinding.VernotasBinding;
 
 import java.util.List;
 
-public class VerNotasFragment extends Fragment implements RecyclerViewInterface, OnNotaSavedListener {
+public class VerNotasFragment extends Fragment implements RecyclerViewInterface, OnNotaSavedListener, SearchView.OnQueryTextListener,AgregarNotaFragment.OnNotaSavedListener {
 
     private VernotasBinding binding;
     private NotesAdapter adapter;
     private DatabaseManager dbManager;
+    private List<Nota> notas;
 
     @Override
     public void onNotaSaved() {
         // Reload notes and update the adapter's data without creating a new adapter instance
         List<Nota> updatedNotas = dbManager.getAllNotas();
         adapter.updateData(updatedNotas);
+        adapter.notifyDataSetChanged();
+
     }
 
     @Nullable
@@ -37,17 +41,30 @@ public class VerNotasFragment extends Fragment implements RecyclerViewInterface,
 
         // Set up database and RecyclerView for displaying notes
         dbManager = new DatabaseManager(getContext());
-        List<Nota> notas = dbManager.getAllNotas();
+        notas = dbManager.getAllNotas();
         binding.recyclerNotas.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // Initialize adapter once and set it to RecyclerView
         adapter = new NotesAdapter(notas, this);
         binding.recyclerNotas.setAdapter(adapter);
 
-        // Set click listener for add note button
+
+
+        binding.Buscador.setOnQueryTextListener(this);
         binding.agregarNotaButton.setOnClickListener(this::onAddNotaButtonClick);
 
         return v;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        adapter.filtrar(newText);
+        return true;
     }
 
     @Override
@@ -55,6 +72,7 @@ public class VerNotasFragment extends Fragment implements RecyclerViewInterface,
         super.onResume();
         // Refresh the notes list each time the fragment becomes visible
         onNotaSaved();
+
     }
 
     public void onNotaClick(int position) {
@@ -83,4 +101,7 @@ public class VerNotasFragment extends Fragment implements RecyclerViewInterface,
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
+
+
 }
