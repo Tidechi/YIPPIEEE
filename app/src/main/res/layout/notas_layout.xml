@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/eachnota"
-    style="@style/debugging_theme"
+    android:theme="@style/debugging_theme"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/rounded_bg_less"
@@ -11,7 +11,6 @@
 
     <TextView
         android:id="@+id/eltitulo"
-        style="@style/debugging_theme.textViews.notasview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Titulo"
@@ -25,7 +24,6 @@
 
     <TextView
         android:id="@+id/lafecha"
-        style="@style/debugging_theme.textViews.notasview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Fecha"
@@ -38,7 +36,6 @@
 
     <TextView
         android:id="@+id/ladescripcion"
-        style="@style/debugging_theme.textViews.notasview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"

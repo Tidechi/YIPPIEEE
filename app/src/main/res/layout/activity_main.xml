@@ -18,10 +18,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#fbdebe"
+        android:background="@color/Secondary"
         android:color="@color/Primary"
         app:itemIconTint="@color/color_selector"
-        app:itemTextColor="#916254"
+        app:itemTextColor="@color/onPrimary"
         app:itemActiveIndicatorStyle="@style/debugging_theme.NavBar"
         app:menu="@menu/bottom_navigation" /> <!-- Referencia al menú -->
 
