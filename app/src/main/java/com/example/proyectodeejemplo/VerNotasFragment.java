@@ -72,7 +72,7 @@ public class VerNotasFragment extends Fragment implements RecyclerViewInterface,
         super.onResume();
         // Refresh the notes list each time the fragment becomes visible
         onNotaSaved();
-        RecargarNotas();
+
     }
 
     public void onNotaClick(int position) {
@@ -103,10 +103,5 @@ public class VerNotasFragment extends Fragment implements RecyclerViewInterface,
     }
 
 
-    private void RecargarNotas() {
-        List<Nota> updatedNotas = dbManager.getAllNotas();
-        notas.clear();
-        notas.addAll(updatedNotas);
-        adapter.updateData(notas); // Update the adapter with the latest data
-    }
+
 }
