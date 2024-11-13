@@ -149,34 +149,6 @@ public class DatabaseManager {
         return null;
     }
 
-    public List<Nota> buscarNotas(String text) {
-        List<Nota> notasFiltradas = new ArrayList<>();
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-
-        String query = "SELECT * FROM notas WHERE " +
-                "titulo LIKE ? OR " +
-                "texto LIKE ? OR " +
-                "strftime('%d de %m de %Y', fecha) LIKE ?";
-        String[] args = new String[] { "%" + text + "%", "%" + text + "%", "%" + text + "%" };
-
-        Cursor cursor = db.rawQuery(query, args);
-
-        if (cursor.moveToFirst()) {
-            do {
-                int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
-                String fecha = cursor.getString(cursor.getColumnIndexOrThrow("fecha"));
-                String titulo = cursor.getString(cursor.getColumnIndexOrThrow("titulo"));
-                String textoEncontrado = cursor.getString(cursor.getColumnIndexOrThrow("texto"));
-                int design = cursor.getInt(cursor.getColumnIndexOrThrow("design"));
-                Nota nota = new Nota(id,fecha,titulo,textoEncontrado,design);
-
-                // Aquí asignas los valores del cursor a tu objeto nota
-                notasFiltradas.add(nota);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        return notasFiltradas;
-    }
 
     //Metodos para los recordatorios #ayuda
 

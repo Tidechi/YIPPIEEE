@@ -28,11 +28,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 public class AgregarNotaFragment extends Fragment {
 
-    DatabaseManager dbManager;
-    NotesAdapter adapter;
+
+
 
 
     private AgregarnotasBinding binding;
@@ -89,11 +90,23 @@ public class AgregarNotaFragment extends Fragment {
                     Toast.makeText(getContext(), "Nota guardada", Toast.LENGTH_SHORT).show();
                 }
 
+                if (getActivity() instanceof OnNotaSavedListener) {
+                    ((OnNotaSavedListener) getActivity()).onNotaSaved();
+                }
+
+                // Notificar al fragmento que los datos han cambiado
+                if (getActivity() instanceof OnNotaSavedListener) {
+                    ((OnNotaSavedListener) getActivity()).onNotaSaved();
+                }
 
 
 
-                // Return to VerNotasFragment
-                getParentFragmentManager().popBackStack();
+                // Para que la lista de Notas se actualice al volver
+                Fragment verNotasFragment = new VerNotasFragment();
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.VerNotasFragmentContainer, verNotasFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
@@ -149,6 +162,11 @@ public class AgregarNotaFragment extends Fragment {
         }
     }
 
+    public interface OnNotaSavedListener {
+        void onNotaSaved(); // Método que notificará al fragmento que los datos han cambiado
+    }
+
+
 
 
 
@@ -156,3 +174,4 @@ public class AgregarNotaFragment extends Fragment {
 
 
 }
+

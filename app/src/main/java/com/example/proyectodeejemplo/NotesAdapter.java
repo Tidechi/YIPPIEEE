@@ -60,6 +60,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
         Log.d("Adapter", "Binding note at position " + position + ": " + nota.getTitulo());
     }
+
+
     public void filtrar(String textoBuscado){
         int longi= textoBuscado.length();
         if(longi==0){
