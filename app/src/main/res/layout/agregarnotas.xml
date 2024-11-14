@@ -4,26 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/Background"
     android:theme="@style/debugging_theme"
-    tools:context=".AgregarNotas"
-    app:layout_constraintBottom_toTopOf="@+id/frame_container">
+    tools:context=".AgregarNotas">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="-10dp"
+        android:layout_marginTop="-10dp"
+        android:layout_marginEnd="-10dp"
         android:background="@drawable/rounded_bg"
-        android:backgroundTint="@color/fatidic_orange"
+        android:backgroundTint="@color/Tertiary"
         android:padding="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
             android:id="@+id/editFecha"
-            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginEnd="3dp"
+            android:backgroundTint="@color/Tertiary"
             android:cursorVisible="false"
             android:ems="10"
             android:gravity="center"
@@ -31,8 +36,7 @@
             android:text="30/01/2024"
             android:textAlignment="viewEnd"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@color/brownish_words"
-            android:textSize="17dp"
+            android:textColor="@color/onTertiary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -49,8 +53,7 @@
             android:ems="10"
             android:hint="Titulo aqui"
             android:inputType="text"
-            android:paddingStart="5dp"
-            android:textSize="20dp"
+            android:paddingStart="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/editFecha"
             app:layout_constraintHorizontal_bias="0.5"
@@ -121,5 +124,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:srcCompat="@drawable/flowers_agregar_nota" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.07" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -51,6 +51,7 @@ public class CalendarioFragment extends Fragment {
 
             binding.reminderFrame.setOnClickListener(v -> {
                 Intent intent = new Intent(requireContext(), AgregarRecordatorios.class);
+                intent.putExtra("selected_date", todayDate); // Pass the selected date
                 startActivity(intent);
             });
 

@@ -1,7 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:theme="@style/debugging_theme">
 
     <!--Aquí carga los fragmentos ¿ -->
     <FrameLayout
@@ -17,10 +18,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#fbdebe"
+        android:background="@color/Secondary"
         android:color="@color/Primary"
         app:itemIconTint="@color/color_selector"
-        app:itemTextColor="#916254"
+        app:itemTextColor="@color/onPrimary"
         app:itemActiveIndicatorStyle="@style/debugging_theme.NavBar"
         app:menu="@menu/bottom_navigation" /> <!-- Referencia al menú -->
 
