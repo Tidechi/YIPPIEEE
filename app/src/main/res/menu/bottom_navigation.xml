@@ -11,4 +11,8 @@
         android:id="@+id/checklist"
         android:title="Checklist"
         android:icon="@drawable/checklist"/> <!-- Ensure tint is consistent -->
+    <item
+        android:id="@+id/usuario"
+        android:title="Perfil"
+        android:icon="@drawable/iconusuario"/>
 </menu>
