@@ -29,7 +29,7 @@
             android:name=".Inicio"
             android:exported="false" />
         <activity
-            android:name=".UsserView"
+            android:name=".UserView"
             android:exported="false" />
         <activity
             android:name=".AnimosVista"
@@ -49,8 +49,7 @@
             android:exported="true" />
         <activity
             android:name=".AgregarNotas"
-            android:exported="true"
-            android:theme="@style/debugging_theme"/>
+            android:exported="true"/>
         <activity
             android:name=".VerNotas"
             android:exported="true" />

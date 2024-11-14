@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,7 +26,6 @@ import com.example.proyectodeejemplo.databinding.UserViewBinding;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 public class UserView extends Fragment {
@@ -38,8 +38,6 @@ public class UserView extends Fragment {
     private static final String PERFS = "Preferencias";
     private static final String IMAGE = "img";
 
-    private ArrayList<Usuario> usuarioList;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,7 +47,7 @@ public class UserView extends Fragment {
         dateManager = new DateManager();
         initDatePicker();
 
-        usuarioList = dbManager.getAllUsers();
+        // Initialize data from the database
         actualizarDatos();
 
         // Calendario
@@ -58,110 +56,52 @@ public class UserView extends Fragment {
         String mes = dateManager.getMesLetras();
         binding.mes.setText(mes);
 
-        //Cargar la imagen guardada si existe
+        // Cargar la imagen guardada si existe
         SharedPreferences prefs = getContext().getSharedPreferences(PERFS, Context.MODE_PRIVATE);
         String imgguardada = prefs.getString(IMAGE, null);
         if (imgguardada != null) {
             File imageFile = new File(imgguardada);
             if (imageFile.exists()) {
-                binding.foto.setImageURI(Uri.fromFile(imageFile)); //acá le pasa la foto al imagebutton
+                binding.foto.setImageURI(Uri.fromFile(imageFile)); // Acá le pasa la foto al ImageButton
             }
         }
 
-
         binding.Editcum.setOnClickListener(v1 -> datePickerDialog.show());
 
+        binding.edit.setOnClickListener(v1 -> enableEditing());
+        binding.guardar.setOnClickListener(v2 -> saveChanges());
 
-        //Desde acá tamos mal
-        binding.edit.setOnClickListener(v1 -> {
-            binding.guardar.setVisibility(View.VISIBLE);
-            binding.Editcum.setEnabled(true);
-            binding.Editcol.setEnabled(true);
-            binding.nombre.setEnabled(true);
-
-            binding.guardar.setOnClickListener(v2 -> {
-                String colorfav = binding.Editcol.getText().toString();
-                String cumple = binding.Editcum.getText().toString();
-                String nbre = binding.nombre.getText().toString();
-
-                String[] fechaParts = cumple.split("/");
-                int Dia = Integer.parseInt(fechaParts[0]);
-                int Mes = Integer.parseInt(fechaParts[1]);
-
-                String signo = getZodiacSign(Dia, Mes);
-
-                //Esto me lo robé PORQUE NO SÉ QUÉ CARAJO MÁS HACER y aún no funciona lol
-                if (!usuarioList.isEmpty()) {
-                    Usuario usuario = usuarioList.get(1);
-
-                    // Asegúrate de que el id del usuario es válido
-                    if (usuario.getId() == 0) {
-                        Log.e("Usuario", "El ID del usuario es inválido.");
-                        return;
-                    }
-
-                    // Actualizamos los datos del usuario con el ID 1
-                    usuario.setNombre(nbre);
-                    usuario.setSigno(signo);
-                    usuario.setColor(colorfav);
-                    usuario.setCumple(cumple);
-
-                    // Verificamos que los valores no sean null o vacíos antes de hacer la actualización
-                    if (usuario.getNombre() == null || usuario.getNombre().isEmpty() || usuario.getColor() == null || usuario.getColor().isEmpty() || usuario.getSigno() == null || usuario.getSigno().isEmpty() || usuario.getCumple() == null || usuario.getCumple().isEmpty()) {
-                        Log.e("Usuario", "Algunos campos están vacíos.");
-                        return;
-                    }
-                    int result = dbManager.updateUsuario(usuario);
-
-                    if (result > 0) {
-                        Log.d("Usuario", "Usuario actualizado con id: " + usuario.getId());
-                        usuarioList = dbManager.getAllUsers(); // Recargamos la lista de usuarios desde la base de datos
-                        actualizarDatos();
-                    } else {
-                        Log.e("Usuario", "Error al actualizar el usuario con id: " + usuario.getId());
-                    }
-
-                    //Escondemos el botón de guardar y se desactiva la mmda para editar
-                    binding.guardar.setVisibility(View.GONE);
-                    binding.Editcum.setEnabled(false);
-                    binding.Editcol.setEnabled(false);
-                    binding.nombre.setEnabled(false);
-                } else {
-                    Log.e("Usuario", "La lista de usuarios está vacía");
-                }
-            });
+        binding.foto.setOnClickListener(v1 -> {
+            // Para que el usuario asigne la foto desde galería
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(intent, PICK_IMAGE_REQUEST);
         });
-
-
-
-
-        binding.foto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Para que el usuario asigne la foto desde galeria
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, PICK_IMAGE_REQUEST);
-            }
-        });
-
 
         return v;
     }
 
-
-
-    //Método para actualizar los datos de perfil en la vista
     private void actualizarDatos() {
-        if (usuarioList != null && usuarioList.size() > 0) {
-            Usuario primerUsuario = usuarioList.get(0);
-            binding.nombre.setText(primerUsuario.getNombre());
-            binding.sig.setText(primerUsuario.getSigno());
-            binding.Editcol.setText(primerUsuario.getColor());
-            binding.Editcum.setText(primerUsuario.getCumple());
+        Usuario usuario = dbManager.getUsuarioById(0); // Directly fetch user with ID 0
+        if (usuario != null) {
+            Log.d("Usuario", "Fetched user: " + usuario.getNombre() + ", signo: " + usuario.getSigno());
+            binding.nombre.setText(usuario.getNombre());
+            binding.sig.setText(usuario.getSigno());  // Ensure 'signo' is displayed correctly
+            binding.Editcol.setText(usuario.getColor());
+
+            // Load 'cumple' as empty if it's blank in the database
+            String cumpleValue = usuario.getCumple();
+            if (cumpleValue == null || cumpleValue.isEmpty()) {
+                binding.Editcum.setText("");
+            } else {
+                binding.Editcum.setText(cumpleValue);
+            }
+        } else {
+            Log.e("Usuario", "No user found with ID 0");
         }
     }
 
-    //esto es tuyo XDDDDDDDDDDDDDD
+
+
     private void initDatePicker() {
         DatePickerDialog.OnDateSetListener dateSetListener = (datePicker, year, month, day) -> {
             month = month + 1;
@@ -179,8 +119,6 @@ public class UserView extends Fragment {
         int month = cal.get(Calendar.MONTH);
         int year = cal.get(Calendar.YEAR);
 
-
-
         int style = AlertDialog.THEME_HOLO_LIGHT;
 
         datePickerDialog = new DatePickerDialog(getContext(), style, dateSetListener, year, month, day);
@@ -190,8 +128,6 @@ public class UserView extends Fragment {
         return day + "/" + month + "/" + year;
     }
 
-
-    //esto no lmao
     private String getZodiacSign(int day, int month) {
         if (month == 1) return (day >= 20) ? "Acuario" : "Capricornio";
         if (month == 2) return (day >= 19) ? "Piscis" : "Acuario";
@@ -207,61 +143,86 @@ public class UserView extends Fragment {
         return (day >= 22) ? "Capricornio" : "Sagitario";
     }
 
-    //Método para procesar el resultado después de que el usuario selecciona la imagen desde la galería
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        //Verifica que la solicitud provenga de la selección de imagen y que el resultado sea exitoso
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-
-            //Obtiene la URI de la imagen seleccionada
-            //Uri = especie de dirección que apunta a recursos como archivos, imágenes, o
-            // ualquier contenido accesible en el dispositivo o en la web
             Uri uriImg = data.getData();
-
-            //Muestra la imagen seleccionada en el ImageView de la interfaz
             binding.foto.setImageURI(uriImg);
 
-            //Guarda la imagen en el almacenamiento interno y registra la ruta en SharedPreferences
             try {
-                //Llama al método para guardar la imagen y obtiene la ruta del archivo guardado
                 String img = saveImageToInternalStorage(uriImg);
 
-                //Accede a SharedPreferences para guardar la ruta de la imagen
                 SharedPreferences prefs = getContext().getSharedPreferences(PERFS, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
-
-                //Guarda la ruta del archivo de imagen en SharedPreferences usando una clave específica
                 editor.putString(IMAGE, img);
-                editor.apply(); //aplica los cambios en SharedPreferences de manera asíncrona
+                editor.apply();
             } catch (IOException e) {
-                e.printStackTrace(); //manejo de cualquier error de entrada o salida
+                e.printStackTrace();
             }
         }
     }
 
-    //Método para guardar la imagen seleccionada en el almacenamiento interno de la aplicación
     private String saveImageToInternalStorage(Uri imageUri) throws IOException {
-        //Convierte la URI de la imagen en un objeto Bitmap
         Bitmap BM = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), imageUri);
-
-        //Crea un archivo en el almacenamiento interno (fotodeperfil)
         File file = new File(getContext().getFilesDir(), "fotodeperfil");
-
-        //Abre un flujo de salida para escribir en el archivo creado
         FileOutputStream fos = new FileOutputStream(file);
-
-        //Comprime y guarda el Bitmap en el archivo como JPEG con calidad 100%
         BM.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-
-        //Cierra el flujo de salida para liberar recursos
         fos.close();
-
-        //Retorna la ruta completa del archivo guardado
         return file.getAbsolutePath();
     }
 
-    //nota pa quien sea que lea esto: eliminar los comentarios explicando pq se ve como si fuese más codigo de lo que es
-}
+    private void enableEditing() {
+        binding.guardar.setVisibility(View.VISIBLE);
+        binding.Editcum.setEnabled(true);
+        binding.Editcol.setEnabled(true);
+        binding.nombre.setEnabled(true);
+    }
 
+    private void saveChanges() {
+        String colorfav = binding.Editcol.getText().toString();
+        String cumple = binding.Editcum.getText().toString();
+        String nbre = binding.nombre.getText().toString();
+
+        // Check if fields are empty before updating
+        if (!nbre.isEmpty() && !colorfav.isEmpty() && !cumple.isEmpty()) {
+            String[] fechaParts = cumple.split("/");  // Ensure cumple is in "dd/mm/yyyy"
+            if (fechaParts.length >= 2) {
+                int Dia = Integer.parseInt(fechaParts[0]);
+                int Mes = Integer.parseInt(fechaParts[1]);
+                String signo = getZodiacSign(Dia, Mes);  // Calculate the zodiac sign
+
+                // Log signo before updating
+                Log.d("Usuario", "Calculated signo: " + signo);
+
+                // Update the database directly without checking for nulls
+                Usuario usuario = new Usuario(0, nbre, signo, colorfav, cumple);  // Create new user with updated fields
+                int result = dbManager.updateUsuario(usuario); // Update all fields in one go
+                if (result > 0) {
+                    Log.d("Usuario", "Usuario actualizado con id: 0");
+
+                    // Show a toast indicating the update was successful
+                    Toast.makeText(getActivity(), "Usuario actualizado correctamente", Toast.LENGTH_SHORT).show();
+
+                    actualizarDatos(); // Refresh the data after saving
+                } else {
+                    Log.e("Usuario", "Error al actualizar el usuario con id: 0");
+                }
+            } else {
+                Log.e("Usuario", "Formato de fecha inválido en el campo de cumpleaños.");
+            }
+        } else {
+            Log.e("Usuario", "Campos vacíos, por favor completa todos los campos.");
+        }
+
+        disableEditing();
+    }
+
+    private void disableEditing() {
+        binding.guardar.setVisibility(View.GONE);
+        binding.Editcum.setEnabled(false);
+        binding.Editcol.setEnabled(false);
+        binding.nombre.setEnabled(false);
+    }
+}

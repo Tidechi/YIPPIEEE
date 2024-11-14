@@ -444,44 +444,66 @@ public class DatabaseManager {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("nombre", usuario.getNombre());
-
+        values.put("id", usuario.getId());  // Ensure the user ID is 0
         long result = db.insert("Usuario", null, values);
         if (result == -1) {
-            Log.e("Database", "No se insertó el usuario...");
-        } else {
-            Log.d("Database", "Usuario insertado con id: " + result);
+            Log.e("Database", "No se insertó nada...");
         }
         db.close();
     }
 
 
-
-
-
-    //Actualizar usuario POR QUÉ NO FUNCIONAS
+    //Actualizar usuario
     public int updateUsuario(Usuario usuario) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("nombre", usuario.getNombre());
-        values.put("signo", usuario.getSigno());
+        values.put("colorfav", usuario.getColor());
         values.put("cumple", usuario.getCumple());
-        values.put("color", usuario.getColor());
+        values.put("signo", usuario.getSigno());  // Make sure signo is also updated
 
-        // El método update devuelve el número de filas afectadas
+        // Log values before updating
+        Log.d("Database", "Updating user with ID: " + usuario.getId() + ", signo: " + usuario.getSigno());
+
         int result = db.update("Usuario", values, "id = ?", new String[]{String.valueOf(usuario.getId())});
-        db.close();
-
-        // Si result > 0, significa que se actualizó al menos una fila
         if (result > 0) {
-            Log.d("Database", "Usuario actualizado con id: " + usuario.getId());
+            Log.d("Database", "User updated successfully.");
         } else {
-            Log.e("Database", "Error actualizando el usuario...");
+            Log.e("Database", "Failed to update user.");
         }
+        db.close();
         return result;
     }
 
 
 
+    //Actualizar signo de usuario
+    public void actualizarSigno(Usuario usuario){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("signo", usuario.getSigno());
+        db.update("Usuario", values, "id = ?", new String[]{String.valueOf(usuario.getId())});
+        db.close();
+    }
+
+
+
+    //Encontrar usuario por id
+
+    public Usuario getUsuarioById(int id) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Usuario WHERE id = ?", new String[]{String.valueOf(id)});
+        if (cursor != null && cursor.moveToFirst()) {
+            String nombre = cursor.getString(1);
+            Usuario usuario = new Usuario(id, nombre);
+            cursor.close();
+            db.close();
+            return usuario;
+        }
+        cursor.close();
+        db.close();
+        return null;
+    }
 
     //Recupera los usuarios // Esto me lo robé del esclavo pq no estaba funcionando de la manera en que lo estaba haciendo
     public ArrayList<Usuario> getAllUsers() {
@@ -519,8 +541,6 @@ public class DatabaseManager {
         return userList;
     }
 
-
-    //
     // Método para eliminar todos los usuarios
     public void deleteAllUsers() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
