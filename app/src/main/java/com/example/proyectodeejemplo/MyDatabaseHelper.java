@@ -68,6 +68,17 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 "tipo TEXT" +
                 ");";
         db.execSQL(createTipoNotaTable);
+
+        //Tabla tipo Usuario
+        String createUsuarioTable = "CREATE TABLE Usuario (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "nombre TEXT," +
+                "signo TEXT," +
+                "cumple TEXT," +
+                "colorfav TEXT" +
+                ");";
+        db.execSQL(createUsuarioTable);
+
     }
 
     @Override
@@ -79,6 +90,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS Mood");
         db.execSQL("DROP TABLE IF EXISTS Designs");
         db.execSQL("DROP TABLE IF EXISTS TipoNota");
+        db.execSQL("DROP TABLE IF EXISTS Usuario");
+
 
         onCreate(db);
     }

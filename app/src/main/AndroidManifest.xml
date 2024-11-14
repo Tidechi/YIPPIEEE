@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.proyectodeejemplo">
+    package="com.example.proyectodeejemplo"
+    tools:ignore="SelectedPhotoAccess">
+
+    <!-- Permiso para acceder al almacenamiento externo -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" /> <!-- Para Android 12 y versiones anteriores -->
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32"
+        tools:ignore="ScopedStorage" /> <!-- Para Android 12 y versiones anteriores -->
+
+    <!-- Para Android 13 y versiones superiores -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <application
         android:allowBackup="true"
@@ -13,6 +25,12 @@
         android:supportsRtl="true"
         android:theme="@style/debugging_theme"
         tools:targetApi="31">
+        <activity
+            android:name=".Inicio"
+            android:exported="false" />
+        <activity
+            android:name=".UsserView"
+            android:exported="false" />
         <activity
             android:name=".AnimosVista"
             android:exported="false" />
@@ -28,14 +46,14 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".AgregarNotas"
             android:exported="true"
             android:theme="@style/debugging_theme"/>
         <activity
             android:name=".VerNotas"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".debugMenu"
             android:exported="true">

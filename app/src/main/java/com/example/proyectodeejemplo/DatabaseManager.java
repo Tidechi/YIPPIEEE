@@ -1,5 +1,6 @@
 package com.example.proyectodeejemplo;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -148,7 +149,6 @@ public class DatabaseManager {
         db.close();
         return null;
     }
-
 
     //Metodos para los recordatorios #ayuda
 
@@ -438,6 +438,103 @@ public class DatabaseManager {
         db.close();
     }
 
+
+    //Método para insertar un usuario
+    public void insertUsuario(Usuario usuario) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("nombre", usuario.getNombre());
+
+        long result = db.insert("Usuario", null, values);
+        if (result == -1) {
+            Log.e("Database", "No se insertó el usuario...");
+        } else {
+            Log.d("Database", "Usuario insertado con id: " + result);
+        }
+        db.close();
+    }
+
+
+
+
+
+    //Actualizar usuario POR QUÉ NO FUNCIONAS
+    public int updateUsuario(Usuario usuario) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("nombre", usuario.getNombre());
+        values.put("signo", usuario.getSigno());
+        values.put("cumple", usuario.getCumple());
+        values.put("color", usuario.getColor());
+
+        // El método update devuelve el número de filas afectadas
+        int result = db.update("Usuario", values, "id = ?", new String[]{String.valueOf(usuario.getId())});
+        db.close();
+
+        // Si result > 0, significa que se actualizó al menos una fila
+        if (result > 0) {
+            Log.d("Database", "Usuario actualizado con id: " + usuario.getId());
+        } else {
+            Log.e("Database", "Error actualizando el usuario...");
+        }
+        return result;
+    }
+
+
+
+
+    //Recupera los usuarios // Esto me lo robé del esclavo pq no estaba funcionando de la manera en que lo estaba haciendo
+    public ArrayList<Usuario> getAllUsers() {
+        ArrayList<Usuario> userList = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = null;
+
+        try {
+            cursor = db.rawQuery("SELECT * FROM Usuario", null); // Usando la tabla 'Usuario'
+
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    // Recupera los datos de cada columna (asegúrate de que los índices de columna coincidan con tu esquema)
+                    @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
+                    @SuppressLint("Range") String nombre = cursor.getString(cursor.getColumnIndex("nombre"));
+
+                    Usuario usuario = new Usuario(id, nombre);
+
+                    userList.add(usuario);
+
+                    Log.d("Database", "Usuario encontrado: " + usuario.getNombre());
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            Log.e("Database", "Error al obtener usuarios", e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+
+        // Para depurar y asegurarnos de que la lista tiene la cantidad correcta de usuarios
+        Log.d("Database", "Total usuarios recuperados: " + userList.size());
+        return userList;
+    }
+
+
+    //
+    // Método para eliminar todos los usuarios
+    public void deleteAllUsers() {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        try {
+            db.execSQL("DELETE FROM Usuario");
+
+            Log.d("Database", "Todos los usuarios han sido eliminados.");
+        } catch (Exception e) {
+            Log.e("Database", "Error al eliminar usuarios", e);
+        } finally {
+            db.close();
+        }
+    }
 
 
 }
