@@ -394,6 +394,13 @@ public class DatabaseManager {
 
     }
 
+    public void EliminarTodosItems(){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.delete("Checklist", null, null);
+        db.close();
+
+    }
+
     //Metodos para el mood
     public void insertMood(Mood mood){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -430,6 +437,7 @@ public class DatabaseManager {
         db.update("Mood", values, "fecha = ?", new String[]{mood.getFecha()});
         db.close();
     }
+
 
 
 }

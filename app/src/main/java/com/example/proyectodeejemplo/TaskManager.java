@@ -168,6 +168,11 @@ public class TaskManager {
         }
     }
 
+    public void LimpiarTareas(){
+        dbManager.EliminarTodosItems();
+        cargarItems();
+    }
+
 
 }
 

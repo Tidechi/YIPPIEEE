@@ -1,5 +1,8 @@
 package com.example.proyectodeejemplo;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -8,6 +11,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -17,6 +21,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -63,6 +68,13 @@ public class CheckListYIPPIEEEFragment extends Fragment implements TaskManager.C
             }
         });
 
+        binding.LimpiarItemsCheckList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mostrarDialogoCustom();
+            }
+        });
+
         return v;
     }
 
@@ -92,6 +104,44 @@ public class CheckListYIPPIEEEFragment extends Fragment implements TaskManager.C
         mediaPlayer.start();
         binding.conf.setVisibility(View.VISIBLE);
         binding.YIPPIEEE.setVisibility(View.VISIBLE);
+    }
+
+    private void mostrarDialogoCustom() {
+        // Crea una instancia del dialogo y configura su diseño
+        Dialog dialog = new Dialog(requireContext());
+        dialog.setContentView(R.layout.mensaje_personalizado);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        TextView textView = dialog.findViewById(R.id.TextoMovi);
+        animarTextoLetraPorLetra(textView, "Está seguro que desea eliminar todas sus tareas?", 100);
+
+        Button btnConfirmar = dialog.findViewById(R.id.botonSi);
+        Button btnCancelar = dialog.findViewById(R.id.botonNo);
+
+
+        btnConfirmar.setOnClickListener(v -> {
+            taskManager.LimpiarTareas();
+            Toast.makeText(requireContext(), "Tareas eliminadas", Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
+        });
+
+        btnCancelar.setOnClickListener(v -> dialog.dismiss());
+
+
+        dialog.show();
+    }
+    private void animarTextoLetraPorLetra(TextView textView, String texto, long retraso) {
+        textView.setText("");
+        final int longitudTexto = texto.length();
+        final Handler handler = new Handler();
+
+        for (int i = 0; i < longitudTexto; i++) {
+            final int index = i;
+            handler.postDelayed(() -> {
+                // Agrega una letra a la vez
+                textView.setText(textView.getText().toString() + texto.charAt(index));
+            }, retraso * i); // Aumenta el retraso para cada letra
+        }
     }
 
 }
