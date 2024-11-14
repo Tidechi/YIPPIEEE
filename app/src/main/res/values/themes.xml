@@ -10,6 +10,13 @@
         <item name="colorOnSecondary">@color/icon_color</item>
     </style>
 
+    <style
+        name="AppTheme"
+        parent="ThemeOverlay.Material3.DynamicColors.DayNight">
+        ...
+    </style>
+
+
     <!-- Light theme specifically for debugging -->
     <style name="debugging_theme" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/Primary</item>

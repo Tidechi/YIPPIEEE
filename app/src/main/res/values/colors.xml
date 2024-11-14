@@ -13,25 +13,27 @@
     <color name="muted_brown">#8D6E63</color>
 
     <!-- New palette colors based on images -->
-    <color name="choco_brown">#645491</color>
+    <color name="choco_brown">#916254</color>
     <color name="back_creamy">#f8f5f0</color>
     <color name="chill_toast">#e7d8c5</color>
     <color name="brownish_words">#82635b</color>
     <color name="yellowish_butter">#faf5d8</color>
     <color name="fatidic_orange">#e9c9a7</color>
+    <color name="top_pink">#eddbcf</color>
+    <color name="bottom_pink">#d4b2a9</color>
 
 
     <!-- Set main theme colors to these base colors -->
-    <color name="Primary">#4624A6</color> <!-- from choco brown to darkest purple -->
+    <color name="Primary">#916254</color> <!-- from choco brown to darkest purple -->
     <color name="onPrimary">#FFFFFFFF</color> <!-- white -->
-    <color name="Secondary">#BAA2FF</color> <!-- from chill_toast to chill_purple-->
-    <color name="onSecondary">#301676</color> <!-- from brownish_words  to purpleish_words-->
-    <color name="Tertiary">#bea7e9</color> <!-- from fatidic_orange to doomsday_purple-->
-    <color name="onTertiary">#301676</color> <!-- from brownish_words  to purpleish_words-->
-    <color name="Background">#f3f0f8</color> <!-- from back_creamy to yoghurt_cream-->
-    <color name="onBackground">#e9d8fa</color> <!-- from yellowish_butter to pale_purple-->
-    <color name="Fourth">#dbcfed</color> <!-- from top_pink to top_bubbles-->
-    <color name="onFourth">#c0a9d4</color> <!-- from bottom_pink to bottom_soapy-->
+    <color name="Secondary">#e7d8c5</color> <!-- from chill_toast to chill_purple-->
+    <color name="onSecondary">#82635b</color> <!-- from brownish_words  to purpleish_words-->
+    <color name="Tertiary">#e9c9a7</color> <!-- from fatidic_orange to doomsday_purple-->
+    <color name="onTertiary">#82635b</color> <!-- from brownish_words  to purpleish_words-->
+    <color name="Background">#f8f5f0</color> <!-- from back_creamy to yoghurt_cream-->
+    <color name="onBackground">#faf5d8</color> <!-- from yellowish_butter to pale_purple-->
+    <color name="Fourth">#eddbcf</color> <!-- from top_pink to top_bubbles-->
+    <color name="onFourth">#d4b2a9</color> <!-- from bottom_pink to bottom_soapy-->
 
 
     <!-- Optional additional colors for different UI elements -->
