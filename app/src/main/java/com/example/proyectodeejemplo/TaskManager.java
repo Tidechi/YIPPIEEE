@@ -1,9 +1,11 @@
 package com.example.proyectodeejemplo;
 
+
 import static java.security.AccessController.getContext;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Paint;
 import android.media.MediaPlayer;
 import android.view.View;
 import android.widget.CheckBox;
@@ -106,11 +108,21 @@ public class TaskManager {
                         dbManager.updateItem(item);
                         Log.d("TaskManager", "Task updated in DB: " + item.getTexto() + " - " + (isChecked ? "Completed" : "Not Completed"));
 
+                        //tachar si la checkbox esta marcada
+                        if (isChecked) {
+                            cb.setPaintFlags(cb.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                            //Color para cuando se marque una tarea
+                            cb.setBackgroundColor(context.getResources().getColor(R.color.muted_brown));
+
+                        } else {
+                            cb.setPaintFlags(cb.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+                            cb.setBackgroundColor(context.getResources().getColor(R.color.Secondary));
+                        }
                          terminadas = 0;
                         for (CheckBox tarea : tareas) {
                             if (tarea.isChecked()) {
                                 terminadas++;
-                                //agregar cambio de color
+
                             }
                         }
                         actualizarProgreso();
