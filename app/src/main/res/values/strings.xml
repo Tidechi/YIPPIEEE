@@ -1,3 +1,49 @@
 <resources>
     <string name="app_name">ProyectoDeEjemplo</string>
+
+    <string-array name="felih">
+        <item>¡Tu luz ilumina el mundo!</item>
+        <item>Sigue brillando con esa increíble vibra 😊</item>
+        <item>Haz que valga cada día</item>
+        <item>¡Que tu sonrisa inspire a todos hoy!</item>
+        <item>Inspira al mundo con tu alegría</item>
+        <item>¡Lo estás haciendo genial!</item>
+        <item>¡Disfruta el momento!</item>
+        <item>Todo lo que necesitas ya está dentro de ti</item>
+        <item>"Haz de este día algo tan especial como tú</item>
+        <item>Sé la causa de muchas sonrisas</item>
+
+    </string-array>
+
+    <string-array name="truste">
+        <item>Todo mejora eventualmente</item>
+        <item>Hoy es un buen día para sanar</item>
+        <item>Tu esfuerzo será recompensado</item>
+        <item>El sol brilla incluso en días grises</item>
+        <item>Cada paso hacia adelante cuenta</item>
+        <item>Tu corazón aún irradia calidez</item>
+        <item>Sé más amable contigo mismo</item>
+        <item>No es tarde para volver a empezar</item>
+        <item>Descansa tu mente cuando lo necesites</item>
+        <item>Siempre hay alguien que espera por ti</item>
+
+    </string-array>
+
+    <string-array name="neutral">
+        <item>La calma de hoy prepara tu éxito</item>
+        <item>Pasos pequeños, grandes logro</item>
+        <item>Tranquilo pero lleno de posibilidades</item>
+        <item>Todo se alinea cuando es el momento</item>
+        <item>Todo es un proceso, confía</item>
+        <item>A veces está bien estar cansado</item>
+        <item>Recuerda mirar hacia adelante</item>
+        <item>La calma es parte del equilibrio</item>
+        <item>La paz existe hasta en lo más sencillo</item>
+        <item>Está bien ser tú mismo</item>
+
+    </string-array>
+
+
+
+
 </resources>
