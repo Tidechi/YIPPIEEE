@@ -30,15 +30,13 @@
         app:layout_constraintVertical_bias="0.173" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/xd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="21dp"
-        android:text="Modo Aesthetic"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        android:layout_marginTop="60dp"
+        android:text="Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button1" />
-
+        app:layout_constraintTop_toBottomOf="@+id/button2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

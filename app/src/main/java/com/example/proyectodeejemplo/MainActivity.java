@@ -1,5 +1,6 @@
 package com.example.proyectodeejemplo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.util.Log; // Import Log class for logging
@@ -13,10 +14,13 @@ import com.example.proyectodeejemplo.CheckListYIPPIEEE;
 
 public class MainActivity extends AppCompatActivity {
 
+    private DatabaseManager db;
+
     // Fragment instances for each section (notes, checklist, calendar)
     private final VerNotasFragment verNotasFragment = new VerNotasFragment();
     private final CheckListYIPPIEEEFragment checkListYIPPIEEEFragment = new CheckListYIPPIEEEFragment();
     private final CalendarioFragment verCalendarioFragment = new CalendarioFragment();
+    private final UserView UserView = new UserView();
 
     // Binding instance
     private ActivityMainBinding binding;
@@ -27,12 +31,27 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        db = new DatabaseManager(this);
+
+
+        //sin no encuentra usuarios registrados, se devuelve a la pantalla de inicio
+        if (db.getAllUsers().size() != 0) {
+        } else {
+            Intent intent = new Intent(MainActivity.this, Inicio.class);
+            startActivity(intent);
+            finish();
+            return; //Termina `onCreate` si redirige para evitar que siga ejecutando el código restante
+        }
+
+
         // Configure BottomNavigationView for fragment navigation
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setOnItemSelectedListener(mOnNavigationItemSelectedListener);
 
         // Load the default fragment at startup
         loadFragment(verCalendarioFragment);
+
+
     }
 
 
@@ -55,11 +74,14 @@ public class MainActivity extends AppCompatActivity {
                     } else if (item.getItemId() == R.id.calendario) {
                         selectedFragment = verCalendarioFragment;
                         loadFragment(selectedFragment);
+                        Log.d("MainActivity", "Selected fragment: UserView");
+                    } else if (item.getItemId() == R.id.usuario) {
+                        selectedFragment = UserView;
+                        loadFragment(selectedFragment);
                         Log.d("MainActivity", "Selected fragment: CalendarioFragment");
-                    } else {
-                        return false;
-                    }
-
+                   } else {
+                          return false;
+                       }
                     loadFragment(selectedFragment);
                     return true;
                 }
