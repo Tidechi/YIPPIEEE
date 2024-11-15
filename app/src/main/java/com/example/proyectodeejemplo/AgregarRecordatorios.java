@@ -63,7 +63,7 @@ public class AgregarRecordatorios extends AppCompatActivity {
         try {
             List<Integer> imageResources = Arrays.asList(
                     R.drawable.sticky1, R.drawable.sticky2, R.drawable.sticky3,
-                    R.drawable.sticky4, R.drawable.sticky5, R.drawable.sticky6
+                    R.drawable.sticky4, R.drawable.sticky5, R.drawable.sticky6, R.drawable.sticky7, R.drawable.sticky8, R.drawable.sticky9, R.drawable.sticky10
             );
 
             RecyclerView recyclerView = findViewById(R.id.horizontal_scroller);
@@ -158,6 +158,10 @@ public class AgregarRecordatorios extends AppCompatActivity {
             case 4: return R.drawable.sticky4;
             case 5: return R.drawable.sticky5;
             case 6: return R.drawable.sticky6;
+            case 7: return R.drawable.sticky7;
+            case 8: return R.drawable.sticky8;
+            case 9: return R.drawable.sticky9;
+            case 10: return R.drawable.sticky10;
             default: return R.drawable.sticky1;
         }
     }
