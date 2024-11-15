@@ -18,6 +18,7 @@ import com.example.proyectodeejemplo.databinding.VercalendarioBinding;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Random;
 
 public class CalendarioFragment extends Fragment {
 
@@ -77,12 +78,21 @@ public class CalendarioFragment extends Fragment {
             switch (mood.getEstado()) {
                 case "triste":
                     binding.moodLayout.setBackground(getResources().getDrawable(R.drawable.triste));
+                    String[] FrasesTristes = getResources().getStringArray(R.array.truste);
+                    String truste = obtenerFraseAleatoria(FrasesTristes);
+                    binding.quote.setText(truste);
                     break;
                 case "neutral":
                     binding.moodLayout.setBackground(getResources().getDrawable(R.drawable.neutral));
+                    String[] FrasesNeutrales = getResources().getStringArray(R.array.neutral);
+                    String neutral = obtenerFraseAleatoria(FrasesNeutrales);
+                    binding.quote.setText(neutral);
                     break;
                 case "feliz":
                     binding.moodLayout.setBackground(getResources().getDrawable(R.drawable.feliz));
+                    String[] FrasesFelices = getResources().getStringArray(R.array.felih);
+                    String feliz = obtenerFraseAleatoria(FrasesFelices);
+                    binding.quote.setText(feliz);
                     break;
             }
         }
@@ -165,4 +175,11 @@ public class CalendarioFragment extends Fragment {
             Log.e("CalendarioFragment", "Error updating view on date selection", e);
         }
     }
+
+    private String obtenerFraseAleatoria(String[] frases) {
+        Random random = new Random();
+        int indiceAleatorio = random.nextInt(frases.length);
+        return frases[indiceAleatorio];
+    }
+
 }
