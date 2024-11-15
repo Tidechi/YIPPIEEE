@@ -27,7 +27,6 @@ public class Inicio extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         DatabaseManager dbManager = new DatabaseManager(this);
-
         String defaultText = "Ingresa tu nombre";
 
         binding.ok.setOnClickListener(new View.OnClickListener() {
@@ -36,16 +35,14 @@ public class Inicio extends AppCompatActivity {
                 String nombre = binding.nom.getText().toString();
 
                 if (!nombre.isEmpty() && !nombre.equals(defaultText)) {
-                    // checks if the user 0 exists in the database, to then update it if it does, otherwise it will create a new user with the right name
-                    Usuario usuarioExistente = dbManager.getUsuarioById(0);
-                    if (usuarioExistente == null) {
-                        // Create user if not exists
-                        dbManager.insertUsuario(new Usuario(0, nombre));
-                        Toast.makeText(Inicio.this, "Usuario creado", Toast.LENGTH_SHORT).show();
+                    Usuario user = dbManager.getUsuarioById(1); // Always fetch user with ID 1
+                    if (user != null) {
+                        user.setNombre(nombre); // Update name
+                        dbManager.updateUsuario(user); // Save updates
+                        Toast.makeText(Inicio.this, "Nombre actualizado", Toast.LENGTH_SHORT).show();
                     } else {
-                        // Update user if exists
-                        dbManager.updateUsuario(new Usuario(0, nombre));
-                        Toast.makeText(Inicio.this, "Usuario actualizado", Toast.LENGTH_SHORT).show();
+                        dbManager.insertUsuario(new Usuario(1, nombre)); // Use ID 1
+                        Toast.makeText(Inicio.this, "Usuario creado", Toast.LENGTH_SHORT).show();
                     }
                     Intent intent = new Intent(Inicio.this, MainActivity.class);
                     startActivity(intent);
@@ -55,4 +52,5 @@ public class Inicio extends AppCompatActivity {
             }
         });
     }
+
 }
