@@ -97,6 +97,16 @@ public class TaskManager {
                 RG.addView(cb, 0);
                 tareas.add(cb);
 
+                //tachar si la checkbox esta marcada
+                if (item.getEstado()) {
+                    cb.setPaintFlags(cb.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    //Color para cuando se marque una tarea
+                    cb.setBackgroundColor(context.getResources().getColor(R.color.muted_brown));
+
+                } else {
+                    cb.setPaintFlags(cb.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+                    cb.setBackgroundColor(context.getResources().getColor(R.color.Secondary));
+                }
                 if (item.getEstado()) {
                     completedTasks++;
                 }
@@ -213,6 +223,10 @@ public class TaskManager {
                 : 0; // Evitar división por cero.
 
         PorcentajeBarra.setText(PorcentajeTerminado + "%");
+    }
+
+    private void MarcarTareasCompletadas(boolean isChecked){
+
     }
 
 
