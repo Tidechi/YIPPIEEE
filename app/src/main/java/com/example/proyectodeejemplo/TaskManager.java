@@ -40,19 +40,22 @@ public class TaskManager {
     private List<CheckBox> tareas = new ArrayList<>();
     private List<ChecklistItem> checklistItems;
     private CelebrationListener celebrationListener;
+    private TextView PorcentajeBarra;
+    private int terminadas;
 
     public interface CelebrationListener {
         void celebrate();
     }
 
     // Constructor
-    public TaskManager(Context context, RadioGroup taskgroup, ProgressBar PB, String fechaDeHoy, CelebrationListener listener) {
+    public TaskManager(Context context, RadioGroup taskgroup, ProgressBar PB, String fechaDeHoy, CelebrationListener listener,TextView PorcentajeBarra) {
         Log.d("TaskManager", "Initializing TaskManager with date: " + fechaDeHoy);
         this.context = context;
         this.RG = taskgroup;
         this.PB = PB;
         this.fechaDeHoy = fechaDeHoy;
         this.celebrationListener = listener;
+        this.PorcentajeBarra = PorcentajeBarra;
 
         try {
             dbManager = new DatabaseManager(context);
@@ -68,6 +71,7 @@ public class TaskManager {
         try {
             RG.removeAllViews();
             tareas.clear();
+
 
             checklistItems = dbManager.getAllItemsByFecha(fechaDeHoy);
             if (checklistItems == null) {
@@ -102,19 +106,26 @@ public class TaskManager {
                         dbManager.updateItem(item);
                         Log.d("TaskManager", "Task updated in DB: " + item.getTexto() + " - " + (isChecked ? "Completed" : "Not Completed"));
 
-                        int terminadas = 0;
+                         terminadas = 0;
                         for (CheckBox tarea : tareas) {
                             if (tarea.isChecked()) {
                                 terminadas++;
+                                //agregar cambio de color
                             }
                         }
+                        actualizarProgreso();
+
                         PB.setProgress(terminadas);
+
+
                         verificarTareasCompletas();
                     }
                 });
+
             }
 
             PB.setProgress(completedTasks);
+            actualizarProgreso();
             Log.d("TaskManager", "Initial progress set to: " + completedTasks);
         } catch (Exception e) {
             Log.e("TaskManager", "Error in cargarItems: " + e.getMessage(), e);
@@ -135,6 +146,7 @@ public class TaskManager {
                     dbManager.insertItem(newTask);
                     Log.d("TaskManager", "New task added: " + newTask.getTexto());
                     cargarItems();
+                    actualizarProgreso();
                     RG.invalidate(); // Force redraw
                     campoTexto.setText("");
                 } catch (Exception e) {
@@ -173,6 +185,22 @@ public class TaskManager {
     public void LimpiarTareas(){
         dbManager.EliminarTodosItems();
         cargarItems();
+    }
+    private void actualizarProgreso() {
+        terminadas = 0;
+        for (CheckBox tarea : tareas) {
+            if (tarea.isChecked()) {
+                terminadas++;
+            }
+        }
+
+
+
+        int PorcentajeTerminado = checklistItems.size() > 0
+                ? (terminadas * 100) / checklistItems.size()
+                : 0; // Evitar división por cero.
+
+        PorcentajeBarra.setText(PorcentajeTerminado + "%");
     }
 
 

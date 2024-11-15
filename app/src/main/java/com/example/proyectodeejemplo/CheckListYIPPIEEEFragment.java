@@ -61,7 +61,7 @@ public class CheckListYIPPIEEEFragment extends Fragment implements TaskManager.C
         binding.fechaChecklist.setText(fechaDeHoy);
 
         // Initialize taskManager with getContext() instead of this
-        taskManager = new TaskManager(getContext(), binding.TASKRG, binding.PBTasks, fechaDeHoy, this);
+        taskManager = new TaskManager(getContext(), binding.TASKRG, binding.PBTasks, fechaDeHoy, this,binding.PorcentajeBarra);
         taskManager.cargarItems();
 
         // Setup the button and its listener
@@ -70,6 +70,7 @@ public class CheckListYIPPIEEEFragment extends Fragment implements TaskManager.C
             @Override
             public void onClick(View v) {
                 String txtTarea = binding.add.getText().toString();
+
                 taskManager.agregarTarea(txtTarea, binding.add, binding.PBTasks);
             }
         });
@@ -156,7 +157,7 @@ public class CheckListYIPPIEEEFragment extends Fragment implements TaskManager.C
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         TextView textView = dialog.findViewById(R.id.TextoMovi);
-        animarTextoLetraPorLetra(textView, "Está seguro que desea eliminar todas sus tareas?", 100);
+        animarTextoLetraPorLetra(textView, "¿Está seguro que desea eliminar todas sus tareas?", 40);
 
         Button btnConfirmar = dialog.findViewById(R.id.botonSi);
         Button btnCancelar = dialog.findViewById(R.id.botonNo);
