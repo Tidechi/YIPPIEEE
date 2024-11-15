@@ -11,7 +11,6 @@ import com.example.proyectodeejemplo.databinding.DebugmenuBinding;
 
 import java.util.ArrayList;
 
-
 public class debugMenu extends AppCompatActivity {
     DebugmenuBinding binding;
 
@@ -26,16 +25,12 @@ public class debugMenu extends AppCompatActivity {
         binding.xd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //RECUERDA PELMAZO que esto está acá para probar una y otra vez si funciona la wea
-                //del inicio ok cuando no tengas que corroborar si anda lo MATAS
-                dbManager.deleteAllUsers();
-                Intent intent;
-
                 try {
-                    ArrayList<Usuario> userList = dbManager.getAllUsers();
+                    ArrayList<Usuario> Usuarios = new ArrayList<>();
+                    Usuarios.add(dbManager.getUsuarioById(1));
 
-                    if (userList.size() > 0) {
+                    Intent intent;
+                    if (!Usuarios.isEmpty()) {
                         intent = new Intent(debugMenu.this, MainActivity.class);
                     } else {
                         intent = new Intent(debugMenu.this, Inicio.class);
@@ -43,13 +38,11 @@ public class debugMenu extends AppCompatActivity {
                     startActivity(intent);
 
                 } catch (Exception e) {
-                    //excepciones pq aja ya cometí muchos errores ¿
                     Log.e("debugMenu", "Error al acceder a la base de datos", e);
                     Toast.makeText(debugMenu.this, "Error al acceder a la base de datos", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
 
         binding.button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,5 +60,13 @@ public class debugMenu extends AppCompatActivity {
             }
         });
 
+        // Attach the click listener for button3
+        binding.button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dbManager.deleteAllUsers();
+                Toast.makeText(debugMenu.this, "Todos los usuarios han sido eliminados", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

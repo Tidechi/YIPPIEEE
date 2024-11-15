@@ -5,7 +5,7 @@ public class Usuario {
     public String nombre;
     public String signo;
     public String cumple;
-    public String color;
+    public String colorfav;
 
     public int getId() {
         return id;
@@ -39,25 +39,26 @@ public class Usuario {
         this.cumple = cumple;
     }
 
-    public String getColor() {
-        return color;
+    public String getcolorfav() {
+        return colorfav;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setcolorfav(String colorfav) {
+        this.colorfav = colorfav;
     }
 
-    public Usuario(int id, String nombre, String signo, String cumple, String color) {
+    public Usuario(int id, String nombre, String signo, String cumple, String colorfav) {
         this.id = id;
         this.nombre = nombre;
         this.signo = signo;
         this.cumple = cumple;
-        this.color = color;
+        this.colorfav = colorfav;
     }
 
     public Usuario(int id, String nombre){
         this.id = id;
         this.nombre = nombre;
+
     }
 
 

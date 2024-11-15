@@ -10,7 +10,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "appdiario.db";
 
     // Database version
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 10;
 
     public MyDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -72,10 +72,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         //Tabla tipo Usuario
         String createUsuarioTable = "CREATE TABLE Usuario (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "nombre TEXT," +
-                "signo TEXT," +
-                "cumple TEXT," +
-                "colorfav TEXT" +
+                "nombre TEXT NOT NULL," +
+                "signo TEXT Default ''," +
+                "cumple TEXT Default '13/11/2000'," +
+                "colorfav TEXT Default ''" +
                 ");";
         db.execSQL(createUsuarioTable);
 

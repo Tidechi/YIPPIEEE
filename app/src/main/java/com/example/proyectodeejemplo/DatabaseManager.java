@@ -443,66 +443,78 @@ public class DatabaseManager {
     public void insertUsuario(Usuario usuario) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
+
+        // Force the ID to be 1
+        values.put("id", 1);
         values.put("nombre", usuario.getNombre());
-        values.put("id", usuario.getId());  // Ensure the user ID is 0
-        long result = db.insert("Usuario", null, values);
+        values.put("colorfav", usuario.getcolorfav());
+        values.put("cumple", usuario.getCumple());
+        values.put("signo", usuario.getSigno());
+
+        long result = db.insertWithOnConflict("Usuario", null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        // REPLACE ensures that if there's already a user with id=1, it will overwrite
+
         if (result == -1) {
-            Log.e("Database", "No se insertó nada...");
+            Log.e("Database", "No se pudo insertar el usuario...");
+        } else {
+            Log.d("Database", "Usuario insertado o reemplazado con id: " + result);
         }
         db.close();
     }
-
 
     //Actualizar usuario
-    public int updateUsuario(Usuario usuario) {
+    public void updateUsuario(Usuario usuario) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
+
         values.put("nombre", usuario.getNombre());
-        values.put("colorfav", usuario.getColor());
+        values.put("colorfav", usuario.getcolorfav());
         values.put("cumple", usuario.getCumple());
-        values.put("signo", usuario.getSigno());  // Make sure signo is also updated
+        values.put("signo", usuario.getSigno());
 
-        // Log values before updating
-        Log.d("Database", "Updating user with ID: " + usuario.getId() + ", signo: " + usuario.getSigno());
-
-        int result = db.update("Usuario", values, "id = ?", new String[]{String.valueOf(usuario.getId())});
-        if (result > 0) {
-            Log.d("Database", "User updated successfully.");
+        int rowsAffected = db.update("Usuario", values, "id = ?", new String[]{"1"});
+        if (rowsAffected > 0) {
+            Log.d("Database", "Usuario actualizado correctamente.");
         } else {
-            Log.e("Database", "Failed to update user.");
+            Log.d("Database", "No se encontró un usuario para actualizar.");
         }
         db.close();
-        return result;
     }
 
 
-
-    //Actualizar signo de usuario
-    public void actualizarSigno(Usuario usuario){
+    public void updateUsuarioFull(int id, String nombre, String colorfav, String cumple, String signo ) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("signo", usuario.getSigno());
-        db.update("Usuario", values, "id = ?", new String[]{String.valueOf(usuario.getId())});
+        values.put("id", id);
+        values.put("nombre", nombre);
+        values.put("colorfav", colorfav);
+        values.put("cumple", cumple);
+        values.put("signo", signo);
+        db.update("Usuario", values, "id = ?", new String[]{String.valueOf(id)});
         db.close();
     }
-
-
 
     //Encontrar usuario por id
 
     public Usuario getUsuarioById(int id) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM Usuario WHERE id = ?", new String[]{String.valueOf(id)});
-        if (cursor != null && cursor.moveToFirst()) {
-            String nombre = cursor.getString(1);
-            Usuario usuario = new Usuario(id, nombre);
-            cursor.close();
-            db.close();
-            return usuario;
+        Usuario usuario = null;
+
+        if (cursor.moveToFirst()) {
+            int idCol = cursor.getInt(cursor.getColumnIndex("id"));
+            String nombre = cursor.getString(cursor.getColumnIndex("nombre"));
+            String signo = cursor.getString(cursor.getColumnIndex("signo"));
+            String cumple = cursor.getString(cursor.getColumnIndex("cumple"));
+            String colorfav = cursor.getString(cursor.getColumnIndex("colorfav"));
+            usuario = new Usuario(idCol, nombre, signo, cumple, colorfav);
+        } else {
+            Log.d("Database", "No se encontró un usuario con ese ID.");
         }
+
         cursor.close();
         db.close();
-        return null;
+        return usuario;
     }
 
     //Recupera los usuarios // Esto me lo robé del esclavo pq no estaba funcionando de la manera en que lo estaba haciendo
@@ -520,11 +532,11 @@ public class DatabaseManager {
                     @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("id"));
                     @SuppressLint("Range") String nombre = cursor.getString(cursor.getColumnIndex("nombre"));
 
-                    Usuario usuario = new Usuario(id, nombre);
+                    Usuario usuario = new Usuario(id, nombre, "", "", "");
 
                     userList.add(usuario);
 
-                    Log.d("Database", "Usuario encontrado: " + usuario.getNombre());
+                    Log.d("Database", "Usuario encontrado: " + usuario.getNombre() + " con id: " + usuario.getId() + " y cumple: " + usuario.getCumple()+ " y signo: " + usuario.getSigno()+ " y color: " + usuario.getcolorfav());
                 } while (cursor.moveToNext());
             }
         } catch (Exception e) {
