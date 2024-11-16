@@ -10,7 +10,7 @@
         android:id="@+id/constraintLayout4"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
@@ -38,7 +38,7 @@
         <ImageButton
             android:id="@+id/edit"
             android:layout_width="0dp"
-            android:layout_height="39dp"
+            android:layout_height="50dp"
             android:layout_marginTop="12dp"
             android:adjustViewBounds="true"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -56,7 +56,7 @@
         <ImageButton
             android:id="@+id/guardar"
             android:layout_width="0dp"
-            android:layout_height="39dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Guardar cambios"
@@ -87,59 +87,49 @@
             android:id="@+id/textView6"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
             android:text="Datos personales:"
             android:textAlignment="center"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView5"
             app:layout_constraintEnd_toEndOf="@+id/imageView5"
             app:layout_constraintStart_toStartOf="@+id/imageView5"
-            app:layout_constraintTop_toTopOf="@+id/imageView5"
-            app:layout_constraintVertical_bias="0.137" />
+            app:layout_constraintTop_toTopOf="@+id/imageView5" />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="32dp"
             android:text="Cumpleaños:"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-            app:layout_constraintEnd_toEndOf="@+id/imageView5"
-            app:layout_constraintHorizontal_bias="0.18"
-            app:layout_constraintStart_toStartOf="@+id/imageView5"
-            app:layout_constraintTop_toBottomOf="@+id/textView6"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintStart_toStartOf="@+id/Editcum"
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
 
         <TextView
             android:id="@+id/textView21"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="112dp"
+            android:layout_marginTop="8dp"
             android:text="Signo:"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-            app:layout_constraintEnd_toEndOf="@+id/imageView5"
-            app:layout_constraintHorizontal_bias="0.255"
-            app:layout_constraintStart_toStartOf="@+id/imageView5"
-            app:layout_constraintTop_toBottomOf="@+id/textView5"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintStart_toStartOf="@+id/sig"
+            app:layout_constraintTop_toBottomOf="@+id/Editcol" />
 
         <TextView
             android:id="@+id/textView22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="Color favorito:"
-            app:layout_constraintBottom_toTopOf="@+id/textView21"
-            app:layout_constraintEnd_toEndOf="@+id/imageView5"
-            app:layout_constraintHorizontal_bias="0.2"
-            app:layout_constraintStart_toStartOf="@+id/imageView5"
-            app:layout_constraintTop_toBottomOf="@+id/textView5"
-            app:layout_constraintVertical_bias="0.494" />
+            app:layout_constraintStart_toStartOf="@+id/Editcol"
+            app:layout_constraintTop_toBottomOf="@+id/Editcum" />
 
         <Button
             android:id="@+id/Editcum"
             style="?android:spinnerStyle"
-            android:layout_width="144dp"
+            android:layout_width="0dp"
             android:layout_height="38dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             android:ems="10"
             android:enabled="false"
             android:inputType="date"
@@ -147,36 +137,36 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/textView22"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintEnd_toEndOf="@+id/imageView5"
+            app:layout_constraintStart_toStartOf="@+id/imageView5"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
         <EditText
             android:id="@+id/Editcol"
-            android:layout_width="147dp"
+            android:layout_width="0dp"
             android:layout_height="38dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             android:ems="10"
             android:enabled="false"
             android:textAlignment="center"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/textView21"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.487"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView22"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintEnd_toEndOf="@+id/imageView5"
+            app:layout_constraintStart_toStartOf="@+id/imageView5"
+            app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
         <TextView
             android:id="@+id/sig"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             android:text="Rellena con tus datos!"
+            android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imageView5"
+            app:layout_constraintStart_toStartOf="@+id/imageView5"
             app:layout_constraintTop_toBottomOf="@+id/textView21"
             app:layout_constraintVertical_bias="0.0" />
 
@@ -206,7 +196,7 @@
         android:id="@+id/constraintLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="1"
@@ -301,6 +291,7 @@
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/rounded_bg"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"

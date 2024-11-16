@@ -16,7 +16,6 @@
         ...
     </style>
 
-
     <!-- Light theme specifically for debugging -->
     <style name="debugging_theme" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/Primary</item>
@@ -60,6 +59,12 @@
 
     <style name="debugging_theme.NavBar" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
         <item name="android:color">@color/Primary</item>
+        <item name="itemTextColor">@color/onSecondary</item>
+    </style>
+
+    <style name="debugging_theme.NavBarItem" parent="Widget.Material3.BottomNavigationView">
+        <item name="itemTextColor">@color/onSecondary</item>
+        <item name="itemIconTint">@color/icon_color</item>
     </style>
 
     <!-- Custom style for text views -->
