@@ -25,9 +25,16 @@
         android:supportsRtl="true"
         android:theme="@style/debugging_theme"
         tools:targetApi="31">
+
         <activity
             android:name=".Inicio"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".UserView"
             android:exported="false" />
@@ -40,7 +47,7 @@
         <activity
             android:name=".AgregarRecordatorios"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".AgregarRecordatoriosCuadrados"
             android:exported="false" />
@@ -49,19 +56,15 @@
             android:exported="true" />
         <activity
             android:name=".AgregarNotas"
-            android:exported="true"/>
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".VerNotas"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".debugMenu"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
-
 </manifest>

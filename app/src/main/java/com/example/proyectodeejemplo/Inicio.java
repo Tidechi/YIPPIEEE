@@ -29,6 +29,11 @@ public class Inicio extends AppCompatActivity {
         DatabaseManager dbManager = new DatabaseManager(this);
         String defaultText = "Ingresa tu nombre";
 
+        if (dbManager.getUsuarioById(1) != null) {
+            Intent intent = new Intent(Inicio.this, MainActivity.class);
+            startActivity(intent);
+        }
+
         binding.ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
