@@ -44,6 +44,20 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <style name="CustomCalendarMonth" parent="debugging_theme">
+        <item name="android:textColorPrimary">@color/Primary</item>
+        <item name="android:textColorSecondary">@color/onSecondary</item>
+    </style>
+
+    <style name="CustomCalendarDay" parent="debugging_theme">
+        <item name="android:textColor">@drawable/calendarstuff</item>
+    </style>
+
+    <style name="CalenderViewCustom" parent="debugging_theme">
+        <item name="colorControlActivated">@color/Primary</item>
+        <item name="android:textColorPrimaryInverse">@color/fatidic_orange</item>  // color of date selected.
+    </style>
+
     <!-- Custom style for constraint layouts -->
     <style name="debugging_theme.ConstraintLayout">
         <item name="android:backgroundTint">@color/Background</item>
